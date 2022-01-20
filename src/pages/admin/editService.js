@@ -100,7 +100,7 @@ export default function EditService() {
                     <div style={{ color: "#ffffff", fontSize: "39px", fontWeight: "bold" }}>EDIT SERVICES</div>
                     <div className="add_service_button" onClick={handleEdit} >Add Service</div>
                     <div id="Bid-record" style={{ marginTop: "50px" }}>
-                        <table className="table table-striped css-serial"  >
+                        <table className="table table-striped css-serial" style={{ width: '100%', overflowX: 'auto', display: 'block', overflowY: "hidden" }}>
                             <thead>
                                 <tr>
                                     <th style={{ borderRadius: "15px 0 0 15px" }}>ID</th>
@@ -114,7 +114,7 @@ export default function EditService() {
                                     <th style={{ borderRadius: "0 15px 15px 0" }}>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody >
                                 {DataTable()}
                             </tbody>
                         </table>

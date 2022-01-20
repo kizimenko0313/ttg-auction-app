@@ -39,9 +39,9 @@ app.listen(PORT, () => {
 })
 
 // 404 Error
-app.use((req, res, next) => {
-    res.status(404).send('Error 404!')
-});
+// app.use((req, res, next) => {
+//     res.status(404).send('Error 404!')
+// });
 
 app.use(function (err, req, res, next) {
     console.error(err.message);

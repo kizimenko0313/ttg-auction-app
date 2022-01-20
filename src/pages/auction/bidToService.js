@@ -163,7 +163,7 @@ export default function Bid() {
         setHandleLoading(false)
 
         const bidDate = new Date().toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
-        const address = ""
+        const address = "0x760e0302e71A84B7a6247ee921A3e1Cbf500f65D"
         const userBalance = 0;
         const contactInfor = telegram || phone || email;
         const bidderDocument = {};

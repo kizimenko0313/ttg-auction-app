@@ -52,7 +52,7 @@ export default function WinnerRecord() {
                 <Grid item xs={12} sm={12} md={8} lg={9}>
                     <div style={{ color: "#ffffff", fontSize: "39px", fontWeight: "bold" }}>WINNER RECORD</div>
                     <div id="Bid-record" style={{ marginTop: "50px" }}>
-                        <table className="table table-striped css-serial"  >
+                        <table className="table table-striped css-serial" style={{ width: '100%', overflowX: 'auto', display: 'block', overflowY: "hidden" }} >
                             <thead>
                                 <tr>
                                     <th style={{ borderRadius: "15px 0 0 15px" }}>ID</th>
