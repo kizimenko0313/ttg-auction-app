@@ -25,7 +25,7 @@ export default function AdminLeftBarProps() {
     };
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia("(max-width: 1024px)");
+        const mediaQuery = window.matchMedia("(max-width: 1280px)");
         mediaQuery.addListener(handleMediaQueryChange);
         handleMediaQueryChange(mediaQuery);
         return () => {
@@ -34,7 +34,7 @@ export default function AdminLeftBarProps() {
     }, []);
 
     return (
-        <>
+        <div style = {{position:"relative", zIndex:"1000"}}>
             <button onClick={toggleNav} className="Burger">
                 <img src={Burger} alt="burgerIcon" style={{ width: "80px" }} />
             </button>
@@ -48,6 +48,6 @@ export default function AdminLeftBarProps() {
                     <AdminLeftBar />
                 </nav>
             </CSSTransition>
-        </>
+        </div>
     )
 }

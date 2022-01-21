@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Grid } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import Modal from 'react-modal';
@@ -7,7 +7,6 @@ import BackgroundParticles from '../../components/particles'
 import '../../main.css'
 
 import service_image from '../../assets/img/service_image.png'
-import next_button from '../../assets/img/next_2.png'
 import { Button1 } from '../../components/theme';
 import { Button2 } from '../../components/theme';
 
@@ -18,18 +17,6 @@ export default function ServicePage() {
 
     const [isModalVisible, setModalVisible] = useState(false);
     const [select, setSelect] = useState(false);
-
-    const [btnContent1, setBtnContent1] = useState("");
-    const [btnContent2, setBtnContent2] = useState("");
-    const [btnContent3, setBtnContent3] = useState("");
-    const [btnContent4, setBtnContent4] = useState("");
-
-    useEffect(() => {
-        setBtnContent1("OPTION A");
-        setBtnContent2("OPTION B");
-        setBtnContent3("OPTION C");
-        setBtnContent4("OPTION D");
-    }, []);
 
     const customStyles = {
         content: {
@@ -46,22 +33,22 @@ export default function ServicePage() {
 
     const handleModal = () => {
         setModalVisible(!isModalVisible)
+        setSelect(false)
     }
     const handleSelect = () => {
-        setSelect(true)
-        setBtnContent3("OPTION C 👌");
+        setSelect(!select)
     }
     return (
         <div className="App">
             <BackgroundParticles style={{ height: "100%" }} />
             <Header />
             <Grid container>
-                <Grid item xs={12} sm={12} md={6} lg={6} >
+                <Grid item xs={12} sm={12} md={6} lg={5} >
                     <div className="welcome_reveal">
                         <img className="service_image" src={service_image} alt="welcome_image" />
                     </div>
                 </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6} >
+                <Grid item xs={12} sm={12} md={6} lg={7} >
                     <div className="service">
                         <div className="service-title-1">
                             Which Service
@@ -72,7 +59,7 @@ export default function ServicePage() {
                         <div className="services">
                             <Grid container>
                                 <Grid item xs={12} sm={12} md={6} lg={6} >
-                                    <Button1 btnContent={btnContent1} btn1Class="theme_button_1" className="option_A" handleEvent={handleModal} /><br />
+                                    <Button1 btnContent="Crypto.com" btn1Class="theme_button_1" className="option_A" handleEvent={handleModal} /><br />
                                 </Grid>
                                 <Modal
                                     isOpen={isModalVisible}
@@ -92,7 +79,7 @@ export default function ServicePage() {
                                     </div>
                                 </Modal>
                                 <Grid item xs={12} sm={12} md={6} lg={6} >
-                                    <Button1 btnContent={btnContent2} btn1Class="theme_button_1" className="option_B" handleEvent={handleModal} /><br />
+                                    <Button1 btnContent="CoinMarketCap" btn1Class="theme_button_1" className="option_B" handleEvent={handleModal} /><br />
                                 </Grid>
                                 <Modal
                                     isOpen={isModalVisible}
@@ -114,14 +101,14 @@ export default function ServicePage() {
                             </Grid>
                             <Grid container>
                                 <Grid item xs={12} sm={12} md={6} lg={6} >
-                                    <Button2 btnContent={btnContent3} btn2Class="theme_button_2" className="option_C" handleEvent={handleSelect} />
-                                    {/* {select === false ? null :
-                                        <span style={{ color: "green" }}> ✔</span>
-                                    } */}
+                                    <Button2 btnContent={select ? "DexTools 👌" : "DexTools"} btn2Class="theme_button_2" className="option_C" handleEvent={handleSelect} />
                                     <br />
                                 </Grid>
                                 <Grid item xs={12} sm={12} md={6} lg={6}>
-                                    <Button1 btnContent={btnContent4} btn1Class="theme_button_1" className="option_D" handleEvent={handleModal} />
+                                    <Button1 btnContent="CoinGecko" btn1Class="theme_button_1" className="option_D" handleEvent={handleModal} />
+                                </Grid>
+                                <Grid item xs={12} sm={12} md={6} lg={6}>
+                                    <Button1 btnContent="PinkSale" btn1Class="theme_button_1" className="option_D" handleEvent={handleModal} />
                                 </Grid>
                                 <Modal
                                     isOpen={isModalVisible}
@@ -144,9 +131,9 @@ export default function ServicePage() {
                     </div>
                     <div className="next">
                         {select === false ?
-                            <img src={next_button} alt="next_button" className="next_button_disabled" /> :
+                            <Button1 btnContent="NEXT" btn1Class="next_button_disabled next_button" /> :
                             <Link to="/networks">
-                                <img src={next_button} alt="next_button" className="next_button" />
+                                <Button1 btnContent="NEXT" btn1Class="next_button" />
                             </Link>
                         }
 

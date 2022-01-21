@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import '../main.css'
 
 import Admin_logo from '../assets/img/logo_light.png'
-import BackgroundParticles from './particles'
 
 
 export default function AdminLeftBar(props) {
@@ -24,9 +23,8 @@ export default function AdminLeftBar(props) {
         }
     }, [])
     return (
-        <div className={leftbar_style}>
+        <div className={leftbar_style} style={{ zIndex: "999999!important" }}>
             <div className="admin_left_bar">
-                <BackgroundParticles />
                 <center className="admin_logo">
                     <img src={Admin_logo} alt="Admin_logo" className="Admin_logo" />
                 </center>

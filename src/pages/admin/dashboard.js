@@ -44,10 +44,10 @@ export default function Dashboard() {
         <div className="admin_dashboard admin_padding">
             <BackgroundParticles />
             <Grid container>
-                <Grid item md={4} lg={3} >
+                <Grid item md={1} lg={3} >
                     <AdminLeftBarProps />
                 </Grid>
-                <Grid item xs={12} sm={12} md={8} lg={9}>
+                <Grid item xs={12} sm={12} md={11} lg={9} >
                     <div style={{ color: "#ffffff", fontSize: "39px", fontWeight: "bold" }}>Dashboard</div>
                     <div>
                         <Grid container >

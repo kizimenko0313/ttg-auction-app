@@ -9,13 +9,13 @@ export default function AdminAccount() {
         <div className="bid_record admin_padding">
             <BackgroundParticles />
             <Grid container>
-                <Grid item md={4} lg={3} >
+                <Grid item md={1} lg={3} >
                     <AdminLeftBarProps />
                 </Grid>
-                <Grid item xs={12} sm={12} md={8} lg={9}>
+                <Grid item xs={12} sm={12} md={11} lg={9} >
                     <div style={{ color: "#ffffff", fontSize: "39px", fontWeight: "bold" }}>Admin Account</div>
-                    <div id="Bid-record" style={{ marginTop: "50px" }}>
-                        <table className="table table-striped css-serial"  >
+                    <div id="Admin-account" style={{ marginTop: "50px" }}>
+                        <table className="table table-striped css-serial" style={{ width: '100%', overflowX: 'auto', display: 'block', overflowY: "hidden" }} >
                             <thead>
                                 <tr>
                                     <th style={{ borderRadius: "15px 0 0 15px" }}>ID</th>

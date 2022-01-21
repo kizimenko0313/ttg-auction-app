@@ -94,7 +94,7 @@ export default function ServiceTableRow(props) {
             <td>
                 {bidStatus.length === 0 ?
                     <span>
-                        <button onClick={handleEdit} style={{ borderRadius: "5px", backgroundColor: "green", border: "none", outline: "none", padding: "7px 10px", color: "white" }}>Edit</button>
+                        <button onClick={handleEdit} style={{ borderRadius: "5px", backgroundColor: "#2039e0", border: "none", outline: "none", padding: "7px 20px", color: "white", cursor:"pointer" }}>Edit</button>
                         <Modal
                             isOpen={isModalVisible}
                             onRequestClose={handleModal}
@@ -133,7 +133,7 @@ export default function ServiceTableRow(props) {
                                 <button onClick={handleEdit} >Cancel</button>
                             </div>
                         </Modal>
-                        <button onClick={deleteService} style={{ borderRadius: "5px", backgroundColor: "tomato", border: "none", outline: "none", padding: "7px 10px", color: "white" }}>Delete</button>
+                        <button onClick={deleteService} style={{ borderRadius: "5px", backgroundColor: "#e40a58", border: "none", outline: "none", padding: "7px 10px", color: "white", cursor:"pointer" }}>Delete</button>
                     </span> :
                     <button style={{ backgroundColor: "#ffa300", border: "none", outline: "none", padding: "7px 10px", color: "white" }}
                         onClick={() => {

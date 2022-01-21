@@ -10,7 +10,7 @@ import eth from '../../assets/img/eth.png'
 import matic from '../../assets/img/matic.png'
 import fantom from '../../assets/img/fantom.png'
 import network_image from '../../assets/img/network_image.png'
-import next_button from '../../assets/img/next_2.png'
+import { Button1 } from '../../components/theme'
 
 import Header from '../../components/header'
 import Footer from '../../components/footer'
@@ -54,7 +54,7 @@ export default function NetworkPage() {
                         Are you interested in ?
                     </div>
                     <div>
-                        <Grid container>
+                        <Grid container style={{ marginTop: "50px" }}>
                             <Grid item xs={12} sm={6} md={6} lg={6}>
                                 <button className="network_button" onClick={handleBSC}>
                                     <img src={bsc} alt="bsc" style={{ width: "40px", height: "40px" }} />
@@ -89,7 +89,7 @@ export default function NetworkPage() {
                                     <img src={fantom} alt="fantom" style={{ width: "40px", height: "40px" }} />
                                     <span className="networks"> FANTOM</span>
                                     {network === "FANTOM" ?
-                                        <span style={{ color: "green", fontSize: "40px", marginLeft: "30px" }}>✔</span> : null
+                                        <span style={{ color: "green", fontSize: "30px", marginLeft: "30px" }}>✔</span> : null
                                     }
                                 </button>
                             </Grid>
@@ -99,9 +99,9 @@ export default function NetworkPage() {
             </Grid>
             <div className="next">
                 {network === null ?
-                    <img src={next_button} alt="next_button" className="next_button_disabled" /> :
+                    <Button1 btnContent="NEXT" btn1Class="next_button_disabled next_button" /> :
                     <Link to="/calendar">
-                        <img src={next_button} alt="next_button" className="next_button" />
+                        <Button1 btnContent="NEXT" btn1Class="next_button" />
                     </Link>
                 }
             </div>

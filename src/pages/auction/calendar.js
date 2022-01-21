@@ -13,7 +13,6 @@ import BackgroundParticles from '../../components/particles'
 import { Underline } from '../../components/theme'
 import { Button1 } from '../../components/theme'
 import { Button1Left } from '../../components/theme';
-import next_button from '../../assets/img/next_2.png'
 import faq_icon from '../../assets/img/faq.png'
 
 import Header from '../../components/header'
@@ -112,30 +111,6 @@ const CalendarPage = () => {
                 <div className="select_date_calendar">
                     <Grid container>
                         <Grid item xs={12} sm={12} md={12} lg={6}>
-                            <center>
-                                <Calendar
-                                    onChange={selectDate}
-                                    value={date}
-                                />
-                                <p className='text-center'>
-                                    {date.toDateString()}
-                                </p>
-
-                                {date.toDateString() === currentDate.toDateString() ?
-                                    <p className='text-center bold' style={{ color: "lightgreen", fontSize: "20px" }}>
-                                        already finished bid for Today's service.</p> :
-                                    (date.getDate() < currentDate.getDate()) ?
-                                        <p className='text-center bold' style={{ color: "red", fontSize: "20px" }}>
-                                            something went wrong!</p> :
-                                        (date.getTime() < currentDate.setDate(currentDate.getDate() + 14) ?
-                                            <p className='text-center bold' style={{ color: "yellow", fontSize: "20px" }}>
-                                                you can bid for that day. </p> :
-                                            <p className='text-center bold' style={{ color: "lightgreen", fontSize: "20px" }}>
-                                                we are sorry, but not ready yet for that day.</p>)
-                                }
-                            </center>
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={12} lg={6}>
                             <div className="time_slot">
                                 <div className="time_slot_title">
                                     <div style={{ fontSize: "30px" }}>Available Timeslots</div>
@@ -168,6 +143,30 @@ const CalendarPage = () => {
                                 </div>
                             </div>
                         </Grid>
+                        <Grid item xs={12} sm={12} md={12} lg={6} style={{ marginTop: "50px" }}>
+                            <center>
+                                <Calendar
+                                    onChange={selectDate}
+                                    value={date}
+                                />
+                                <p className='text-center'>
+                                    {date.toDateString()}
+                                </p>
+
+                                {date.toDateString() === currentDate.toDateString() ?
+                                    <p className='text-center bold' style={{ color: "lightgreen", fontSize: "20px" }}>
+                                        already finished bid for Today's service.</p> :
+                                    (date.getDate() < currentDate.getDate()) ?
+                                        <p className='text-center bold' style={{ color: "red", fontSize: "20px" }}>
+                                            something went wrong!</p> :
+                                        (date.getTime() < currentDate.setDate(currentDate.getDate() + 14) ?
+                                            <p className='text-center bold' style={{ color: "yellow", fontSize: "20px" }}>
+                                                you can bid for that day. </p> :
+                                            <p className='text-center bold' style={{ color: "lightgreen", fontSize: "20px" }}>
+                                                we are sorry, but not ready yet for that day.</p>)
+                                }
+                            </center>
+                        </Grid>
                     </Grid>
                 </div>
             </div>
@@ -199,13 +198,13 @@ const CalendarPage = () => {
                     <div style={{ color: "yellow", fontSize: "35px", textAlign: "center", padding: "30px" }}>Please Select Service you want...</div> :
                     <div className="next">
                         <Link to="/bid">
-                            <img src={next_button} alt="next_button" className="next_button" />
+                            <Button1 btnContent="NEXT" btn1Class="next_button" />
                         </Link>
                     </div>
                 ) : null
             }
             <div style={{ cursor: "pointer" }}>
-                <Link to="/faq" >
+                <Link to="/faq" style={{ textDecoration: "none" }}>
                     <img src={faq_icon} alt="faq_icon" className="faq_icon" />
                     <span className="faq_text">FAQ</span>
                 </Link>

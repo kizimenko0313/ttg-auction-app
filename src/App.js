@@ -29,7 +29,6 @@ function App() {
   return (
     <ReduxProvider store={store}>
       <Router>
-        {/* <div className="App"> */}
         <Routes>
           <Route exact path='/' element={< WelcomePage />}></Route>
           <Route exact path='/services' element={< ServicePage />}></Route>
@@ -44,7 +43,6 @@ function App() {
           <Route exact path='/admin/admin-accounts' element={< AdminAccount />}></Route>
           <Route path="*" element={< NotFound />}></Route>
         </Routes>
-        {/* </div> */}
       </Router>
       <NotificationContainer />
     </ReduxProvider>

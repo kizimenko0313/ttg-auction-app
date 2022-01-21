@@ -8,7 +8,7 @@ import partner_2 from "../../assets/img/partner_2.png"
 import welcome_image from '../../assets/img/welcome_image.png'
 
 import BackgroundParticles from '../../components/particles';
-import next_button from '../../assets/img/next_2.png'
+import { Button1 } from '../../components/theme'
 
 import Header from '../../components/header'
 import Footer from '../../components/footer'
@@ -46,8 +46,8 @@ export default function WelcomePage(props) {
                 </Grid>
             </div>
             <div className="next">
-                <Link to="/services">
-                    <img src={next_button} alt="next_button" className="next_button" />
+                <Link to="/services" style={{ textDecoration: "none" }}>
+                    <Button1 btnContent="NEXT" btn1Class="next_button" />
                 </Link>
             </div>
             <Footer />
