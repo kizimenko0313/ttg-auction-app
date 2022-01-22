@@ -1,30 +1,36 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-let serviceSchema = new Schema({
+let serviceSchema = new Schema(
+  {
     name: {
-        type: String
+      type: String,
     },
     price: {
-        type: Number
+      type: Number,
     },
-    startDate: {
-        type: Date
+    option: {
+      type: String,
     },
-    endDate: {
-        type: Date
+    network: {
+      type: String,
+    },
+    dates: {
+      type: Array,
     },
     details: {
-        type: String
+      type: String,
     },
     topicImage: {
-        type: Object
+      type: Object,
     },
     bidStatus: {
-        type: Array
-    }
-}, {
-    collection: "services"
-})
+      type: Array,
+    },
+  },
+  {
+    collection: "services",
+  }
+);
 
-module.exports = mongoose.model('Service', serviceSchema)
+module.exports = mongoose.model("Service", serviceSchema);
