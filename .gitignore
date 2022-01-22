@@ -5,8 +5,8 @@
 /backend/node_modules
 /.pnp
 .pnp.js
-/.zip
-/.rar
+.zip
+.rar
 
 # testing
 /coverage
