@@ -79,28 +79,22 @@ const CalendarPage = () => {
     setSelected(false);
     setDate(val);
     setTheServices([]);
+    const seletedDate = new Date(val).toDateString();
+    update({ dateForService: seletedDate });
     for (let i = 0; i < services.length; i++) {
-      if (
-        val > new Date(services[i].startDate) &&
-        val < new Date(services[i].endDate)
-      ) {
-        theServices.push(services[i]);
-      }
-      if (
-        (val.getDate() === new Date(services[i].startDate).getDate() &&
-          val.getMonth() === new Date(services[i].startDate).getMonth()) ||
-        (val.getDate() === new Date(services[i].endDate).getDate() &&
-          val.getMonth() === new Date(services[i].endDate).getMonth())
-      ) {
-        for (let i = 0; i < theServices.length; i++) {
-          if (!services[i] && theServices[i] !== services[i]) {
-            theServices.push(services[i]);
+      let theService = services[i];
+      if (window.localStorage.getItem("network") === theService.network) {
+        for (let i = 0; i < theService.dates.length; i++) {
+          let dsfsdf = new Date(theService.dates[i]).toDateString();
+          if (seletedDate === dsfsdf) {
+            theServices.push(theService);
           }
         }
       }
     }
     if (theServices.length === 1) {
-      update({ selectedService: theServices[0] });
+      setSelected(true);
+      update({ selectedServiceId: theServices[0]._id });
     }
     if (theServices.length === 0) {
       NotificationManager.warning("No available service", "Alam", 1500);
@@ -110,7 +104,7 @@ const CalendarPage = () => {
 
   const selectService = (i) => {
     setSelected(true);
-    update({ selectedService: i });
+    update({ selectedServiceId: i._id });
   };
   return (
     <div className="App" style={{ color: "white" }}>
@@ -120,7 +114,7 @@ const CalendarPage = () => {
         <div className="select_date_title">Select Date</div>
         <Underline />
         <div className="select_date_calendar">
-          <Grid container>
+          <Grid container spacing={5}>
             <Grid
               item
               xs={12}
@@ -140,37 +134,6 @@ const CalendarPage = () => {
                 >
                   {showCurrentTime}
                 </p>
-
-                {/* {date.toDateString() === currentDate.toDateString() ? (
-                  <p
-                    className="text-center bold"
-                    style={{ color: "lightgreen", fontSize: "20px" }}
-                  >
-                    already finished bid for Today's service.
-                  </p>
-                ) : date.getDate() < currentDate.getDate() ? (
-                  <p
-                    className="text-center bold"
-                    style={{ color: "red", fontSize: "20px" }}
-                  >
-                    something went wrong!
-                  </p>
-                ) : date.getTime() <
-                  currentDate.setDate(currentDate.getDate() + 14) ? (
-                  <p
-                    className="text-center bold"
-                    style={{ color: "yellow", fontSize: "20px" }}
-                  >
-                    you can bid for that day.
-                  </p>
-                ) : (
-                  <p
-                    className="text-center bold"
-                    style={{ color: "lightgreen", fontSize: "20px" }}
-                  >
-                    we are sorry, but not ready yet for that day.
-                  </p>
-                )} */}
               </center>
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={7}>

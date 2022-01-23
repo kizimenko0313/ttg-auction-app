@@ -30,6 +30,7 @@ export default function WinnerRecord() {
           winnerData = bidderData;
           winnerData.address = bidderAddress;
           winnerData.serviceName = res.name;
+          winnerData.serviceOption = res.option;
           winnerData.price = res.price;
         }
         return winnerData;
@@ -68,11 +69,13 @@ export default function WinnerRecord() {
                 <tr>
                   <th style={{ borderRadius: "15px 0 0 15px" }}>ID</th>
                   <th>Service</th>
+                  <th>ServiceOption</th>
                   <th>Reserved Price($)</th>
                   <th>Wallet Address</th>
                   <th>Balance</th>
                   <th>Bid Amount</th>
-                  <th>Date</th>
+                  <th>Date(bidded)</th>
+                  <th>Date(ordered)</th>
                   <th>Contact Infor</th>
                   <th style={{ borderRadius: "0 15px 15px 0" }}>Status</th>
                 </tr>

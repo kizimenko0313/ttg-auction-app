@@ -64,7 +64,10 @@ export default function Bid() {
   const [processStep, setProcessStep] = useState("1");
 
   const reduxData = useSelector((state) => state);
-  const selectedService = reduxData.selectedService;
+  const selectedServiceId = reduxData.selectedServiceId;
+  const [selectedService, setSelectedService] = useState({});
+
+  const dateForService = reduxData.dateForService;
 
   const handleModal1 = () => {
     setModalVisible1(!isModalVisible1);
@@ -83,6 +86,7 @@ export default function Bid() {
     setModalVisible4(!isModalVisible4);
   };
   const handleStep1 = () => {
+    console.log(selectedService);
     if (amount <= 0 || amount === "0" || !amount) {
       NotificationManager.warning("invalid bid amount error", "", 3000);
     } else {
@@ -122,14 +126,6 @@ export default function Bid() {
     setBtnConetent("COMPLETE BID");
     setProcessStep("3");
 
-    axios
-      .get(process.env.REACT_APP_PROXY + `/services/` + selectedService._id)
-      .then(({ data }) => {
-        setBidStatus(data.bidStatus);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
     if (network !== ("ETH" && "BSC")) {
       setCurrency(network);
     } else {
@@ -176,6 +172,7 @@ export default function Bid() {
     const bidderDocument = {};
     bidderDocument[address] = {
       date: bidDate,
+      dateForService: dateForService,
       amount: Number(amount),
       currency: currency,
       userBalance: userBalance,
@@ -187,7 +184,7 @@ export default function Bid() {
       .put(
         process.env.REACT_APP_PROXY +
           `/services/update-service/` +
-          selectedService._id,
+          selectedServiceId,
         serviceObject
       )
       .then((res) => {
@@ -199,6 +196,15 @@ export default function Bid() {
   };
 
   useEffect(() => {
+    axios
+      .get(process.env.REACT_APP_PROXY + `/services/` + selectedServiceId)
+      .then(({ data }) => {
+        setBidStatus(data.bidStatus);
+        setSelectedService(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     if (
       !window.localStorage.getItem("selectedService") ||
       !window.localStorage.getItem("network")
@@ -216,7 +222,7 @@ export default function Bid() {
       };
       window.preventBackButton();
     }
-  }, []);
+  }, [selectedServiceId]);
   useEffect(() => {
     setBtnConetent("START BID");
     setNetwork(window.localStorage.getItem("network"));
@@ -313,19 +319,14 @@ export default function Bid() {
                     style={{ marginTop: "25px", color: "#ffffff" }}
                   >
                     <Grid item xs={3} sm={3} md={3} lg={3}>
-                      <div className="bid_details_title">total bids</div>
+                      <div className="bid_details_title">Total Bids</div>
                       <div className="bid_details_props">
-                        {processStep === "completed"
-                          ? selectedService.bidStatus.length + 1
-                          : selectedService.bidStatus.length}
+                        {selectedService.bidStatus?.length || 0}
                       </div>
                     </Grid>
                     <Grid item xs={5} sm={5} md={5} lg={5}>
-                      <div className="bid_details_title">From - To</div>
-                      <div className="bid_details_props">
-                        {new Date(selectedService.startDate).toDateString()} ~{" "}
-                        {new Date(selectedService.endDate).toDateString()}
-                      </div>
+                      <div className="bid_details_title">Ordered Date</div>
+                      <div className="bid_details_props">{dateForService}</div>
                     </Grid>
                     <Grid item xs={4} sm={4} md={4} lg={4}>
                       <div className="bid_details_title">Reserved Price</div>
