@@ -1,168 +1,126 @@
 import * as React from "react";
 import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
+
+const currencies = [
+  {
+    value: "ETH",
+    label: "ETH",
+  },
+  {
+    value: "BSC",
+    label: "BSC",
+  },
+  {
+    value: "MATIC",
+    label: "MATIC",
+  },
+  {
+    value: "FANTOM",
+    label: "FANTOM",
+  },
+];
+
+const options = [
+  {
+    value: "DexTools",
+    label: "DexTools",
+  },
+  {
+    value: "Crypto.com",
+    label: "Crypto.com",
+  },
+  {
+    value: "CoinMarketCap",
+    label: "CoinMarketCap",
+  },
+  {
+    value: "CoinGecko",
+    label: "CoinGecko",
+  },
+  {
+    value: "PinkSale",
+    label: "PinkSale",
+  },
+];
 
 export default function ServiceForm() {
+  const [currency, setCurrency] = React.useState("ETH");
+  const [option, setOption] = React.useState("DexTools");
+
+  const handleCurrency = (event) => {
+    setCurrency(event.target.value);
+  };
+  const handleOption = (event) => {
+    setOption(event.target.value);
+  };
   return (
-    <Box
-      component="form"
-      sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <div>
+    <div className="edit_service_pad">
+      <Box
+        component="form"
+        sx={{
+          "& .MuiTextField-root": { m: 1, width: "25ch" },
+        }}
+        noValidate
+        autoComplete="off"
+      >
         <TextField
-          required
-          id="outlined-required"
-          label="Required"
-          defaultValue="Hello World"
+          label="Service Name"
+          variant="outlined"
+          helperText="Please add a new service name."
         />
         <TextField
-          disabled
-          id="outlined-disabled"
-          label="Disabled"
-          defaultValue="Hello World"
-        />
-        <TextField
-          id="outlined-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-        />
-        <TextField
-          id="outlined-read-only-input"
-          label="Read Only"
-          defaultValue="Hello World"
-          InputProps={{
-            readOnly: true,
-          }}
-        />
-        <TextField
-          id="outlined-number"
-          label="Number"
+          label="Price"
           type="number"
+          variant="outlined"
+          helperText="Please reserve proper price."
+        />
+        <TextField
+          multiline
+          rows={3}
+          label="Service Details"
           InputLabelProps={{
             shrink: true,
           }}
-        />
-        <TextField id="outlined-search" label="Search field" type="search" />
-        <TextField
-          id="outlined-helperText"
-          label="Helper text"
-          defaultValue="Default Value"
-          helperText="Some important text"
-        />
-      </div>
-      <div>
-        <TextField
-          required
-          id="filled-required"
-          label="Required"
-          defaultValue="Hello World"
-          variant="filled"
+          variant="outlined"
+          helperText="Please write details for the service."
         />
         <TextField
-          disabled
-          id="filled-disabled"
-          label="Disabled"
-          defaultValue="Hello World"
-          variant="filled"
-        />
-        <TextField
-          id="filled-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          variant="filled"
-        />
-        <TextField
-          id="filled-read-only-input"
-          label="Read Only"
-          defaultValue="Hello World"
-          InputProps={{
-            readOnly: true,
-          }}
-          variant="filled"
-        />
-        <TextField
-          id="filled-number"
-          label="Number"
-          type="number"
+          select
+          label="option"
+          value={option}
+          onChange={handleOption}
+          helperText="Please select an option."
+          variant="outlined"
           InputLabelProps={{
             shrink: true,
           }}
-          variant="filled"
-        />
+        >
+          {options.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
         <TextField
-          id="filled-search"
-          label="Search field"
-          type="search"
-          variant="filled"
-        />
-        <TextField
-          id="filled-helperText"
-          label="Helper text"
-          defaultValue="Default Value"
-          helperText="Some important text"
-          variant="filled"
-        />
-      </div>
-      <div>
-        <TextField
-          required
-          id="standard-required"
-          label="Required"
-          defaultValue="Hello World"
-          variant="standard"
-        />
-        <TextField
-          disabled
-          id="standard-disabled"
-          label="Disabled"
-          defaultValue="Hello World"
-          variant="standard"
-        />
-        <TextField
-          id="standard-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          variant="standard"
-        />
-        <TextField
-          id="standard-read-only-input"
-          label="Read Only"
-          defaultValue="Hello World"
-          InputProps={{
-            readOnly: true,
-          }}
-          variant="standard"
-        />
-        <TextField
-          id="standard-number"
-          label="Number"
-          type="number"
+          select
+          label="network"
+          value={currency}
+          onChange={handleCurrency}
+          helperText="Please select network."
+          variant="outlined"
           InputLabelProps={{
             shrink: true,
           }}
-          variant="standard"
-        />
-        <TextField
-          id="standard-search"
-          label="Search field"
-          type="search"
-          variant="standard"
-        />
-        <TextField
-          id="standard-helperText"
-          label="Helper text"
-          defaultValue="Default Value"
-          helperText="Some important text"
-          variant="standard"
-        />
-      </div>
-    </Box>
+        >
+          {currencies.map((currency) => (
+            <MenuItem key={currency.value} value={currency.value}>
+              {currency.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Box>
+    </div>
   );
 }

@@ -568,15 +568,18 @@
   position: fixed;
   width: 30%;
   border-radius: 10px;
-  background-color: rgba(27, 30, 202, 0.85)!important;
+  background-color: rgba(27, 30, 202, 1)!important;
 }
 .ReactModalPortal{
   position: relative!important;
   z-index: 100!important;
 }
 .overlay_background {
-  inset: 50px;
-  background-color: rgba(255, 255, 255, 0.75) !important;
+  inset: 50px!important;
+  background-color: transparent!important;
+}
+.ReactModal__Overlay{
+  background-color: rgba(255, 255, 255, 0.2)!important;
 }
 .router-link {
   text-decoration: none;
@@ -853,11 +856,12 @@ margin-top: 50px;
   float: right;
 }
 .edit_service_pad {
-  color: #fff;
+  color: #fff!important;
   padding: 30px;
   font-size: 20px;
 }
 .eidt_service_modal_style{
+  width: 50%;
   top: 50%;
   left: 50%;
   right: auto;
@@ -866,8 +870,83 @@ margin-top: 50px;
   transform: translate(-50%, -50%);
   position: fixed;
   border-radius: 10px;
-  background-color: rgba(27, 30, 202, 0.85)!important;
+  background-color: rgb(7 17 54)!important;
 }
+.saveButtonStyle{
+  background-color: #2039e0;
+  color: #fff;
+  margin-right: 30px;
+  padding: 6px 16px;
+  font-size: 0.875rem;
+    min-width: 64px;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 1.75;
+    border-radius: 4px;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.saveButtonStyle:disabled{
+cursor: not-allowed;
+background-color: #233492;
+}
+.cancelButton{
+  background-color: transparent;
+  color: #2039e0;
+  margin-left: 10px;
+  padding: 6px 16px;
+  font-size: 0.875rem;
+    min-width: 64px;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 1.75;
+    border:#2039e0 1px solid;
+    border-radius: 4px;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+
+/*customize MUI input field*/
+.MuiInputBase-root{
+  color: #fff!important;
+}
+.MuiFormLabel-root{
+  color: rgb(172, 161, 161)!important;
+}
+.MuiFormHelperText-root{
+  color: rgb(235, 221, 31)!important;
+}
+.MuiOutlinedInput-root{
+  background-color: rgba(255, 255, 255, 0.05)!important;
+  
+}
+.MuiFormControl-root{
+  margin-top: 25px!important;
+}
+.rmdp-input{
+  height: 30px!important;
+  padding: 10px!important;
+  background-color: rgba(255, 255, 255, 0.05)!important;
+  color: #fff!important;
+  border: none!important;
+  outline: none!important;
+  cursor: pointer!important;
+}
+.uploadTopicImageButton{
+  color: rgb(172, 161, 161);
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: rgba(214, 205, 205, 0.2) solid 1px;
+  font-size: small;
+}
+
 
 /*available date customization*/
 .availableDate{
@@ -962,6 +1041,9 @@ margin-top: 50px;
 
   .modal_style {
     width: 50%;
+  }
+  .eidt_service_modal_style{
+    width: 60%;
   }
   .Nav {
     position: absolute;
@@ -1119,6 +1201,9 @@ margin-top: 50px;
     word-break: break-all;
   }
   .modal_style {
+    width: 90%;
+  }
+  .eidt_service_modal_style{
     width: 90%;
   }
   .log_out {

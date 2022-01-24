@@ -26,7 +26,7 @@ const CalendarPage = () => {
 
   const [selected, setSelected] = useState(false);
 
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState("");
   const [services, setServices] = useState([]);
   const [theServices, setTheServices] = useState([]);
   const [showServices, setShowServices] = useState([]);
@@ -77,9 +77,9 @@ const CalendarPage = () => {
 
   const selectDate = (val) => {
     setSelected(false);
-    setDate(val);
     setTheServices([]);
-    const seletedDate = new Date(val).toDateString();
+    const seletedDate = val.toDateString();
+    setDate(seletedDate);
     const dateForNotification = new Date(
       val.setDate(val.getDate() - 1)
     ).toDateString();
@@ -132,7 +132,7 @@ const CalendarPage = () => {
               <center>
                 <Calendar
                   onChange={selectDate}
-                  value={date}
+                  //   value={date}
                   tileClassName={({ date }) => {
                     for (let i = 0; i < services.length; i++) {
                       for (let j = 0; j < services[i].dates.length; j++) {
@@ -170,9 +170,7 @@ const CalendarPage = () => {
                     Available Services
                   </div>
                   <div className="time_slot_title_date">
-                    <span style={{ color: "#c70c60" }}>
-                      {date.toDateString()}
-                    </span>
+                    <span style={{ color: "#c70c60" }}>{date}</span>
                   </div>
                 </div>
                 <div>

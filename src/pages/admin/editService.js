@@ -5,17 +5,62 @@ import axios from "axios";
 import { NotificationManager } from "react-notifications";
 import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
+// import Box from "@material-ui/core/Box";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
 
 import BackgroundParticles from "../../components/particles";
 import AdminLeftBarProps from "../../components/adminLeftProps";
 import ServiceTableRow from "../../components/serviceTableRow";
 // import ServiceForm from "../../components/serviceForm";
 
+const currencies = [
+  {
+    value: "ETH",
+    label: "ETH",
+  },
+  {
+    value: "BSC",
+    label: "BSC",
+  },
+  {
+    value: "MATIC",
+    label: "MATIC",
+  },
+  {
+    value: "FANTOM",
+    label: "FANTOM",
+  },
+];
+
+const options = [
+  {
+    value: "DexTools",
+    label: "DexTools",
+  },
+  {
+    value: "Crypto.com",
+    label: "Crypto.com",
+  },
+  {
+    value: "CoinMarketCap",
+    label: "CoinMarketCap",
+  },
+  {
+    value: "CoinGecko",
+    label: "CoinGecko",
+  },
+  {
+    value: "PinkSale",
+    label: "PinkSale",
+  },
+];
+
 export default function EditService() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
-  const [option, setOption] = useState("");
-  const [network, setNetwork] = useState("");
+  const [option, setOption] = useState("DexTools");
+  const [network, setNetwork] = useState("ETH");
   const [details, setDetails] = useState("");
   const [topicImage, setTopicImage] = useState("");
   const [isModalVisible, setModalVisible] = useState(false);
@@ -57,7 +102,7 @@ export default function EditService() {
         return;
       }
     }
-    if (!option || network === "noSelected" || !network) {
+    if (!option || !network) {
       NotificationManager.error("Invalid setting error", "Failed", 3000);
       return;
     }
@@ -107,6 +152,12 @@ export default function EditService() {
     setDates([]);
   };
 
+  const handleNetwork = (event) => {
+    setNetwork(event.target.value);
+  };
+  const handleOption = (event) => {
+    setOption(event.target.value);
+  };
   return (
     <div className="winner_record admin_padding">
       <BackgroundParticles />
@@ -161,135 +212,149 @@ export default function EditService() {
             >
               {/* <ServiceForm /> */}
               <div className="edit_service_pad">
-                <div>
-                  <span>Service Name: </span>
-                  <input
-                    type="text"
-                    placeholder="name..."
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <span>Price($): </span>
-                  <input
-                    type="number"
-                    placeholder="price..."
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <span>Option: </span>
-                  <input
-                    type="radio"
-                    value="DexTools"
-                    name="option"
-                    id="dextools"
-                    onChange={() => setOption("DexTools")}
-                  />
-                  <label htmlFor="dextools">DexTools</label>
-                  <input
-                    type="radio"
-                    value="Crypto.com"
-                    name="option"
-                    id="crypto"
-                    disabled
-                    onChange={() => setOption("Crypto.com")}
-                  />
-                  <label htmlFor="crypto">Crypto.com</label>
-                  <input
-                    type="radio"
-                    value="CoinMarketCap"
-                    name="option"
-                    id="coinmarketcap"
-                    disabled
-                    onChange={() => setOption("CoinMarketCap")}
-                  />
-                  <label htmlFor="coinmarketcap">CoinMarketCap</label>
-                  <input
-                    type="radio"
-                    value="CoinGecko"
-                    name="option"
-                    id="CoinGecko"
-                    disabled
-                    onChange={() => setOption("CoinGecko")}
-                  />
-                  <label htmlFor="CoinGecko">CoinGecko</label>
-                  <input
-                    type="radio"
-                    value="PinkSale"
-                    name="option"
-                    id="PinkSale"
-                    disabled
-                    onChange={() => setOption("PinkSale")}
-                  />
-                  <label htmlFor="PinkSale">PinkSale</label>
-                </div>
-                <div>
-                  <span>Network: </span>
-                  <select
-                    name="network"
-                    id="network"
-                    onChange={(e) => setNetwork(e.target.value)}
-                  >
-                    <option value="noSelected">NoSelected</option>
-                    <option value="ETH">ETH</option>
-                    <option value="BSC">BSC</option>
-                    <option value="MATIC">MATIC</option>
-                    <option value="FANTOM">FANTOM</option>
-                  </select>
-                </div>
-                <div>
-                  <span>Available Date: </span>
-                  <DatePicker
-                    multiple
-                    value={dates}
-                    onChange={setDates}
-                    plugins={[<DatePanel />]}
-                  />
-                </div>
-                <div>
-                  <span>Details: </span>
-                  <textarea
-                    placeholder="please explain about this service here..."
-                    value={details}
-                    onChange={(e) => setDetails(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <span>Topic Image: </span>
-                  {!topicImage ? (
-                    <input
-                      type="file"
-                      name="topicImage"
-                      onChange={handleImage}
+                <Grid container>
+                  <Grid item xs={12} sm={12} md={6} lg={6}>
+                    <TextField
+                      label="Service Name"
+                      variant="outlined"
+                      helperText="Please add a new service name."
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                     />
-                  ) : null}
-                  <img
-                    src={topicImage ? URL.createObjectURL(topicImage) : null}
-                    alt={topicImage ? topicImage.name : null}
-                    width="150px"
-                  />
-                </div>
-                <button
-                  onClick={saveService}
-                  disabled={
-                    name &&
-                    price &&
-                    option &&
-                    network &&
-                    network !== "noSelected" &&
-                    dates.length !== 0 &&
-                    details &&
-                    topicImage
-                      ? false
-                      : true
-                  }
-                >
-                  Save
-                </button>
-                <button onClick={cancelEdit}>Cancel</button>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={6} lg={6}>
+                    <TextField
+                      label="Price"
+                      type="number"
+                      variant="outlined"
+                      helperText="Please reserve proper price."
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={6} lg={6}>
+                    <TextField
+                      select
+                      label="option"
+                      value={option}
+                      onChange={handleOption}
+                      helperText="Please select an option."
+                      variant="outlined"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    >
+                      {options.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={6} lg={6}>
+                    <TextField
+                      select
+                      label="network"
+                      value={network}
+                      onChange={handleNetwork}
+                      helperText="Please select network."
+                      variant="outlined"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    >
+                      {currencies.map((currency) => (
+                        <MenuItem key={currency.value} value={currency.value}>
+                          {currency.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    style={{ marginTop: "15px" }}
+                  >
+                    <DatePicker
+                      placeholder="pick available dates for the service.."
+                      multiple
+                      value={dates}
+                      onChange={setDates}
+                      plugins={[<DatePanel />]}
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    style={{ marginTop: "25px" }}
+                  >
+                    {!topicImage ? (
+                      <label className="uploadTopicImageButton">
+                        Upload Topic Image
+                        <input
+                          type="file"
+                          name="topicImage"
+                          onChange={handleImage}
+                          style={{ display: "none" }}
+                        />
+                      </label>
+                    ) : null}
+                    <img
+                      src={topicImage ? URL.createObjectURL(topicImage) : null}
+                      alt={topicImage ? topicImage.name : null}
+                      width="150px"
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={6} lg={6}>
+                    <TextField
+                      multiline
+                      rows={3}
+                      label="Service Details"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      variant="outlined"
+                      helperText="Please write details for the service."
+                      value={details}
+                      onChange={(e) => setDetails(e.target.value)}
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    style={{ marginTop: "30px" }}
+                  >
+                    <button
+                      className="saveButtonStyle"
+                      onClick={saveService}
+                      disabled={
+                        name &&
+                        price &&
+                        option &&
+                        network &&
+                        dates.length !== 0 &&
+                        details &&
+                        topicImage
+                          ? false
+                          : true
+                      }
+                    >
+                      SAVE
+                    </button>
+                    <button className="cancelButton" onClick={cancelEdit}>
+                      CANCEL
+                    </button>
+                  </Grid>
+                </Grid>
               </div>
             </Modal>
           </div>
