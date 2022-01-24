@@ -80,7 +80,13 @@ const CalendarPage = () => {
     setDate(val);
     setTheServices([]);
     const seletedDate = new Date(val).toDateString();
-    update({ dateForService: seletedDate });
+    const dateForNotification = new Date(
+      val.setDate(val.getDate() - 1)
+    ).toDateString();
+    update({
+      dateForService: seletedDate,
+      dateForNotification: dateForNotification,
+    });
     for (let i = 0; i < services.length; i++) {
       let theService = services[i];
       if (window.localStorage.getItem("network") === theService.network) {
@@ -124,7 +130,28 @@ const CalendarPage = () => {
               style={{ marginTop: "10px" }}
             >
               <center>
-                <Calendar onChange={selectDate} value={date} />
+                <Calendar
+                  onChange={selectDate}
+                  value={date}
+                  tileClassName={({ date }) => {
+                    for (let i = 0; i < services.length; i++) {
+                      for (let j = 0; j < services[i].dates.length; j++) {
+                        if (
+                          new Date().getTime() < date.getTime() &&
+                          new Date().getDate() + 2 <= date.getDate() &&
+                          services[i].network ===
+                            window.localStorage.getItem("network") &&
+                          new Date(services[i].dates[j]).toDateString() ===
+                            new Date(date).toDateString()
+                        )
+                          return "availableDate"; // your class name
+                      }
+                    }
+                  }}
+                  minDate={
+                    new Date(new Date().setDate(new Date().getDate() + 2))
+                  }
+                />
                 <p
                   className="text-center"
                   style={{

@@ -2,7 +2,7 @@
 .react-calendar--doubleView {width:700px;}
 .react-calendar--doubleView .react-calendar__viewContainer {display:flex; margin:-0.5em;}
 .react-calendar--doubleView .react-calendar__viewContainer > * {width:50%; margin:0.5em;}
-.react-calendar,.react-calendar *,.react-calendar *:after,.react-calendar *:before {-moz-box-sizing:border-box;-webkit-box-sizing:border-box; box-sizing:border-box; font-size:1.5vw;}
+.react-calendar,.react-calendar *,.react-calendar *:after,.react-calendar *:before {-moz-box-sizing:border-box;-webkit-box-sizing:border-box; box-sizing:border-box; font-size:0.8vw;}
 .react-calendar button {margin:0; border:0; outline:none; color:#fff;}
 .react-calendar button:enabled:hover {cursor:pointer;}
 .react-calendar__navigation {display:flex; height:44px; margin-bottom:2em;}

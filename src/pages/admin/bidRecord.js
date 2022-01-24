@@ -60,6 +60,7 @@ export default function BidRecord() {
                   <th>Wallet Address</th>
                   <th>Balance</th>
                   <th>Bid Amount</th>
+                  <th>Ranking</th>
                   <th>Date(bidded)</th>
                   <th>Date(ordered)</th>
                   <th>Contact Infor</th>

@@ -6,7 +6,15 @@ export default function BiddersTableRow(props) {
   const result = props.obj1;
   const bidderAddress = Object.keys(result)[0];
   const resultBidderData = result[bidderAddress];
-
+  var ranking = 1;
+  for (let i = 0; i < props.obj.bidStatus.length; i++) {
+    if (
+      resultBidderData.amount <
+      props.obj.bidStatus[i][Object.keys(props.obj.bidStatus[i])[0]].amount
+    ) {
+      ranking += 1;
+    }
+  }
   return (
     <tr>
       <td></td>
@@ -26,6 +34,7 @@ export default function BiddersTableRow(props) {
         )}
       </td>
       <td>{resultBidderData.amount + " " + resultBidderData.currency}</td>
+      <td>{ranking}</td>
       <td>{resultBidderData.date}</td>
       <td>{resultBidderData.dateForService}</td>
       <td>{resultBidderData.contactInfor}</td>

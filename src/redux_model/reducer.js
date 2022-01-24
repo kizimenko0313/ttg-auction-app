@@ -10,6 +10,7 @@ const initialState = {
   topicImage: {},
   selectedServiceId: "",
   dateForService: "",
+  dateForNotification: "",
 };
 
 const getStore = (initialState) => {

@@ -8,6 +8,7 @@ export default function WinnersTableRow(props) {
       <td>{props.obj.serviceName}</td>
       <td>{props.obj.serviceOption}</td>
       <td>{props.obj.price}</td>
+      <td>{props.obj.bidders}</td>
       <td>
         {props.obj.address || (
           <img src={Loading} alt="this bidder missed..." width={30}></img>

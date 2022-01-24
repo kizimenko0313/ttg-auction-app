@@ -32,6 +32,7 @@ export default function WinnerRecord() {
           winnerData.serviceName = res.name;
           winnerData.serviceOption = res.option;
           winnerData.price = res.price;
+          winnerData.bidders = res.bidStatus.length;
         }
         return winnerData;
       });
@@ -71,6 +72,7 @@ export default function WinnerRecord() {
                   <th>Service</th>
                   <th>ServiceOption</th>
                   <th>Reserved Price($)</th>
+                  <th>Total Bidder</th>
                   <th>Wallet Address</th>
                   <th>Balance</th>
                   <th>Bid Amount</th>

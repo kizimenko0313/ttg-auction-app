@@ -9,14 +9,13 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import BackgroundParticles from "../../components/particles";
 import AdminLeftBarProps from "../../components/adminLeftProps";
 import ServiceTableRow from "../../components/serviceTableRow";
+// import ServiceForm from "../../components/serviceForm";
 
 export default function EditService() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [option, setOption] = useState("");
   const [network, setNetwork] = useState("");
-  //   const [startDate, setStartDate] = useState(new Date());
-  //   const [endDate, setEndDate] = useState(new Date());
   const [details, setDetails] = useState("");
   const [topicImage, setTopicImage] = useState("");
   const [isModalVisible, setModalVisible] = useState(false);
@@ -156,10 +155,11 @@ export default function EditService() {
               isOpen={isModalVisible}
               onRequestClose={handleModal}
               contentLabel="Warning"
-              className="modal_style"
+              className="eidt_service_modal_style"
               ariaHideApp={false}
               shouldCloseOnOverlayClick={false}
             >
+              {/* <ServiceForm /> */}
               <div className="edit_service_pad">
                 <div>
                   <span>Service Name: </span>
