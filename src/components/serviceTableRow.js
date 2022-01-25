@@ -94,10 +94,21 @@ export default function ServiceTableRow(props) {
   const handleEdit = () => {
     setModalVisible(!isModalVisible);
   };
+
+  //   to get Base64 URL from uploaded file
+  const getBase64 = (file) =>
+    new Promise(function (resolve, reject) {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject("Error: ", error);
+    });
+
   const handleImage = (e) => {
-    console.log(e.target.files[0]);
-    // const Img = window.localStorage.setItem("topicImage", URL.createObjectURL(e.target.files[0]))
-    setTopicImage(e.target.files[0]);
+    const file = e.target.files[0];
+    getBase64(file).then((result) => {
+      setTopicImage(result);
+    });
   };
 
   const handleMore = () => {
@@ -231,7 +242,7 @@ export default function ServiceTableRow(props) {
         <div style={{ color: "lightgreen" }}>available</div>
       </td>
       <td>
-        <img src={topicImage} alt="topic" width="150px" />
+        <img src={topicImage} alt="topic" width="50px" />
       </td>
       <td>
         {bidStatus.length === 0 ? (
@@ -258,7 +269,7 @@ export default function ServiceTableRow(props) {
               ariaHideApp={false}
               shouldCloseOnOverlayClick={false}
             >
-              <div className="edit_service_pad">
+              <div className="edit_service_pad container-out">
                 <Grid container>
                   <Grid item xs={12} sm={12} md={6} lg={6}>
                     <TextField
@@ -341,7 +352,15 @@ export default function ServiceTableRow(props) {
                     lg={6}
                     style={{ marginTop: "25px" }}
                   >
-                    {!topicImage1 ? (
+                    {topicImage ? (
+                      <img
+                        src={topicImage1}
+                        alt="topicImage"
+                        width="100px"
+                        style={{ marginBottom: "30px" }}
+                      />
+                    ) : null}
+                    <div>
                       <label className="uploadTopicImageButton">
                         Change Topic Image
                         <input
@@ -351,14 +370,7 @@ export default function ServiceTableRow(props) {
                           style={{ display: "none" }}
                         />
                       </label>
-                    ) : null}
-                    <img
-                      src={
-                        topicImage1 ? URL.createObjectURL(topicImage1) : null
-                      }
-                      alt={topicImage1 ? topicImage1.name : null}
-                      width="150px"
-                    />
+                    </div>
                   </Grid>
                   <Grid item xs={12} sm={12} md={6} lg={6}>
                     <TextField

@@ -336,9 +336,14 @@ export default function Bid() {
               <Grid container>
                 <Grid item xs={12} sm={4} md={3} lg={3}>
                   <img
-                    src={Topic_image}
+                    src={
+                      selectedService.topicImage
+                        ? selectedService.topicImage
+                        : Topic_image
+                    }
                     alt="topic_image"
                     className="topic_image"
+                    // width="50px"
                   />
                 </Grid>
                 <Grid item xs={12} sm={8} md={9} lg={9}>

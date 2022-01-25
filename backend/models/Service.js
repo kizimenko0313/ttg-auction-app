@@ -22,7 +22,7 @@ let serviceSchema = new Schema(
       type: String,
     },
     topicImage: {
-      type: Object,
+      type: String,
     },
     bidStatus: {
       type: Array,

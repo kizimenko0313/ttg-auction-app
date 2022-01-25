@@ -5,14 +5,12 @@ import axios from "axios";
 import { NotificationManager } from "react-notifications";
 import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
-// import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
 import BackgroundParticles from "../../components/particles";
 import AdminLeftBarProps from "../../components/adminLeftProps";
 import ServiceTableRow from "../../components/serviceTableRow";
-// import ServiceForm from "../../components/serviceForm";
 
 const currencies = [
   {
@@ -90,11 +88,24 @@ export default function EditService() {
   const handleModal = () => {
     setModalVisible(!isModalVisible);
   };
+
+  //   to get Base64 URL from uploaded file
+  const getBase64 = (file) =>
+    new Promise(function (resolve, reject) {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject("Error: ", error);
+    });
+
   const handleImage = (e) => {
-    // console.log(e.target.files[0]);
-    // const Img = window.localStorage.setItem("topicImage", URL.createObjectURL(e.target.files[0]))
-    setTopicImage(e.target.files[0]);
+    const file = e.target.files[0];
+    getBase64(file).then((result) => {
+      setTopicImage(result);
+    });
   };
+
+  // save a new service
   const saveService = () => {
     for (let i = 0; i < dates.length; i++) {
       if (dates[i] < new Date().getTime()) {
@@ -137,6 +148,11 @@ export default function EditService() {
         NotificationManager.error("Something went wrong", "Oops", 3000)
       );
     setModalVisible(false);
+    setName("");
+    setPrice(0);
+    setDetails("");
+    setTopicImage("");
+    setDates([]);
   };
 
   const handleEdit = () => {
@@ -152,6 +168,7 @@ export default function EditService() {
     setDates([]);
   };
 
+  //   catch network from dropdown menu for network
   const handleNetwork = (event) => {
     setNetwork(event.target.value);
   };
@@ -210,8 +227,7 @@ export default function EditService() {
               ariaHideApp={false}
               shouldCloseOnOverlayClick={false}
             >
-              {/* <ServiceForm /> */}
-              <div className="edit_service_pad">
+              <div className="edit_service_pad container-out">
                 <Grid container>
                   <Grid item xs={12} sm={12} md={6} lg={6}>
                     <TextField
@@ -294,7 +310,15 @@ export default function EditService() {
                     lg={6}
                     style={{ marginTop: "25px" }}
                   >
-                    {!topicImage ? (
+                    {topicImage ? (
+                      <img
+                        src={topicImage}
+                        alt="topicImage"
+                        width="100px"
+                        style={{ marginBottom: "30px" }}
+                      />
+                    ) : null}
+                    <div>
                       <label className="uploadTopicImageButton">
                         Upload Topic Image
                         <input
@@ -304,12 +328,7 @@ export default function EditService() {
                           style={{ display: "none" }}
                         />
                       </label>
-                    ) : null}
-                    <img
-                      src={topicImage ? URL.createObjectURL(topicImage) : null}
-                      alt={topicImage ? topicImage.name : null}
-                      width="150px"
-                    />
+                    </div>
                   </Grid>
                   <Grid item xs={12} sm={12} md={6} lg={6}>
                     <TextField

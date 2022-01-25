@@ -79,7 +79,7 @@
   border: none;
   outline: none;
   opacity: 0.5;
-  cursor: none;
+  cursor: not-allowed;
 }
 .theme_button_1:hover {
   background-position: right center;
@@ -608,9 +608,8 @@
   font-size: 18px;
 }
 .log_out {
-  color: #fff;
+  color: rgba(255,255,255,0.25)!important;
   font-size: 22px;
-  opacity: 20%!important;
   text-align: center;
   margin-top: 30vh;
 }
@@ -859,6 +858,8 @@ margin-top: 50px;
   color: #fff!important;
   padding: 30px;
   font-size: 20px;
+  overflow: auto;
+  height: 600px;
 }
 .eidt_service_modal_style{
   width: 50%;
@@ -930,6 +931,7 @@ background-color: #233492;
 }
 .rmdp-input{
   height: 30px!important;
+  width: 210px!important;
   padding: 10px!important;
   background-color: rgba(255, 255, 255, 0.05)!important;
   color: #fff!important;
@@ -1057,7 +1059,7 @@ background-color: #233492;
 }
 @media (min-width: 1440px) {
   .topic_image {
-    width: 80%;
+    width: 60%;
   }
 }
 @media (max-width: 1440px) {
