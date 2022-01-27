@@ -211,23 +211,25 @@
   text-decoration: none;
 }
 .welcome {
-  margin-left: 15%;
-  letter-spacing: 10px;
+  margin-left: 17%;
+  /* letter-spacing: 10px; */
+  color: #e9992d;
+  margin-top: 60px;
+}
+.welcome-ttg {
+  font-size: 4.5vw;
 }
 .welcome-1 {
-  font-size: 2.5vw;
-  color: #d31056;
-  margin-top: 10%;
+  font-size: 4vw;
+  /* color: #d31056; */
+  font-weight: 900;
+  /* margin-left: 10%; */
 }
 .welcome-2 {
-  font-size: 3.5vw;
-  color: #fff;
-  font-weight: 900;
-}
-.welcome-3 {
-  font-size: 3.5vw;
-  color: #e9992d;
+  font-size: 4vw;
+  /* color: #d31056; */
   font-weight: bold;
+  margin-left: 70%;
 }
 .welcome_reveal {
   animation: MoveUpDown 2s linear infinite;
@@ -257,7 +259,7 @@
 }
 .welcome_image {
   width: 340px;
-  margin-left: 15%;
+  margin-left: 17%;
 }
 .service_image {
   width: 400px;
@@ -277,9 +279,11 @@
   background-image: url("./assets/img/partner_background.png");
   background-size: 100% 100%;
   padding: 20px 30px;
+  width: 80%;
+  margin-left: 9%;
 }
 .partner_text {
-  margin-top: 6%;
+  margin-top: 5%;
 }
 .partner_1 {
   width: 140px;
@@ -401,7 +405,7 @@
   -moz-border-radius: 20px;
   border-radius: 20px;
   color: #fff;
-  font-family: Brush Script MT;
+  font-family: Geneva, sans-serif;
   font-size: 40px;
   font-weight: 100;
   -webkit-box-shadow: inset 1px 1px 20px 0 #fff;
@@ -568,18 +572,24 @@
   position: fixed;
   width: 30%;
   border-radius: 10px;
-  background-color: rgba(27, 30, 202, 1)!important;
+  /* background-color: rgba(27, 30, 202, 1)!important; */
+  background-image: linear-gradient(
+    to left,
+    #090f3b 0,
+    #2e377a 51%,
+    #0c134e 100%
+  );
 }
-.ReactModalPortal{
-  position: relative!important;
-  z-index: 100!important;
+.ReactModalPortal {
+  position: relative !important;
+  z-index: 100 !important;
 }
 .overlay_background {
-  inset: 50px!important;
-  background-color: transparent!important;
+  inset: 50px !important;
+  background-color: transparent !important;
 }
-.ReactModal__Overlay{
-  background-color: rgba(255, 255, 255, 0.2)!important;
+.ReactModal__Overlay {
+  background-color: rgba(255, 255, 255, 0.2) !important;
 }
 .router-link {
   text-decoration: none;
@@ -608,7 +618,7 @@
   font-size: 18px;
 }
 .log_out {
-  color: rgba(255,255,255,0.25)!important;
+  color: rgba(255, 255, 255, 0.25) !important;
   font-size: 22px;
   text-align: center;
   margin-top: 30vh;
@@ -720,7 +730,7 @@ table {
   padding: 10px;
 }
 
-#Bid-record tbody tr:nth-child(even){
+#Bid-record tbody tr:nth-child(even) {
   background-color: rgba(255, 255, 255, 0.05);
 }
 #Bid-record thead {
@@ -732,8 +742,8 @@ table {
   position: sticky;
   top: 0;
 }
-#Bid-record tbody{
-margin-top: 50px;
+#Bid-record tbody {
+  margin-top: 50px;
 }
 #Admin-account td {
   padding: 10px;
@@ -746,14 +756,22 @@ margin-top: 50px;
   min-width: 250px;
 }
 #Admin-account thead {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-radius: 10px;
-    background-color: #2039e0;
-    color: #fff;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 10px;
+  background-color: #2039e0;
+  color: #fff;
 }
-#Admin-account tbody tr:nth-child(even){
+#Admin-account tbody tr:nth-child(even) {
   background-color: rgba(255, 255, 255, 0.05);
+}
+
+#flash {
+  font-family: Geneva, sans-serif;
+  display: inline-block;
+  text-shadow: #bbb 0 0 1px, #fff 0 -1px 1px, rgb(255, 255, 255) 0 -2px 1px,
+    rgba(32, 44, 204, 0.8) 0 10px 15px;
+  transition: margin-left 0.3s cubic-bezier(0, 1, 0, 1);
 }
 
 /* scrollbar*/
@@ -774,7 +792,6 @@ margin-top: 50px;
 
 .container-out::-webkit-scrollbar-track {
   margin: 10px;
-
 }
 
 .input_amount_style {
@@ -855,13 +872,13 @@ margin-top: 50px;
   float: right;
 }
 .edit_service_pad {
-  color: #fff!important;
+  color: #fff !important;
   padding: 30px;
   font-size: 20px;
   overflow: auto;
   height: 600px;
 }
-.eidt_service_modal_style{
+.eidt_service_modal_style {
   width: 50%;
   top: 50%;
   left: 50%;
@@ -871,75 +888,77 @@ margin-top: 50px;
   transform: translate(-50%, -50%);
   position: fixed;
   border-radius: 10px;
-  background-color: rgb(7 17 54)!important;
+  background-color: rgb(7 17 54) !important;
 }
-.saveButtonStyle{
+.saveButtonStyle {
   background-color: #2039e0;
   color: #fff;
   margin-right: 30px;
   padding: 6px 16px;
   font-size: 0.875rem;
-    min-width: 64px;
-    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-    font-weight: 400;
-    line-height: 1.75;
-    border-radius: 4px;
-    letter-spacing: 0.02857em;
-    text-transform: uppercase;
-    cursor: pointer;
+  min-width: 64px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.75;
+  border-radius: 4px;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  cursor: pointer;
 }
-.saveButtonStyle:disabled{
-cursor: not-allowed;
-background-color: #233492;
+.saveButtonStyle:disabled {
+  cursor: not-allowed;
+  background-color: #233492;
 }
-.cancelButton{
+.cancelButton {
   background-color: transparent;
   color: #2039e0;
   margin-left: 10px;
   padding: 6px 16px;
   font-size: 0.875rem;
-    min-width: 64px;
-    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-    font-weight: 400;
-    line-height: 1.75;
-    border:#2039e0 1px solid;
-    border-radius: 4px;
-    letter-spacing: 0.02857em;
-    text-transform: uppercase;
-    cursor: pointer;
+  min-width: 64px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.75;
+  border: #2039e0 1px solid;
+  border-radius: 4px;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  cursor: pointer;
 }
-
 
 /*customize MUI input field*/
-.MuiInputBase-root{
-  color: #fff!important;
+.MuiInputBase-root {
+  color: #fff !important;
 }
-.MuiFormLabel-root{
-  color: rgb(172, 161, 161)!important;
+.MuiFormLabel-root {
+  color: rgb(172, 161, 161) !important;
 }
-.MuiFormHelperText-root{
-  color: rgb(235, 221, 31)!important;
+.MuiFormHelperText-root {
+  color: rgb(235, 221, 31) !important;
 }
-.MuiOutlinedInput-root{
-  background-color: rgba(255, 255, 255, 0.05)!important;
-  
+.MuiOutlinedInput-root {
+  background-color: rgba(255, 255, 255, 0.05) !important;
 }
-.MuiFormControl-root{
-  margin-top: 25px!important;
+.MuiFormControl-root {
+  margin-top: 25px !important;
 }
-.rmdp-input{
-  height: 30px!important;
-  width: 210px!important;
-  padding: 10px!important;
-  background-color: rgba(255, 255, 255, 0.05)!important;
-  color: #fff!important;
-  border: none!important;
-  outline: none!important;
-  cursor: pointer!important;
+.rmdp-input {
+  height: 30px !important;
+  width: 210px !important;
+  padding: 10px !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: #fff !important;
+  border: none !important;
+  outline: none !important;
+  cursor: pointer !important;
 }
-.uploadTopicImageButton{
+.uploadTopicImageButton {
   color: rgb(172, 161, 161);
   background-color: rgba(255, 255, 255, 0.05);
   padding: 15px;
@@ -949,61 +968,63 @@ background-color: #233492;
   font-size: small;
 }
 
-
 /*available date customization*/
-.availableDate{
-  border:#d31056 solid 2px !important;
+.availableDate {
+  border: #d31056 solid 2px !important;
   border-radius: 50%;
 }
-.react-calendar__tile:disabled{
-  background-color: transparent!important;
-  color: #757575!important;
+.react-calendar__tile:disabled {
+  background-color: transparent !important;
+  color: #757575 !important;
 }
-.react-calendar__navigation button[disabled]{
-  background-color: transparent!important;
+.react-calendar__navigation button[disabled] {
+  background-color: transparent !important;
 }
 
 /*date panel */
-.rmdp-wrapper{
-  background-color: rgba(27, 30, 202, 0.85)!important;
+.rmdp-wrapper {
+  background-color: rgba(27, 30, 202, 0.85) !important;
 }
-.rmdp-day, .rmdp-week-day{
-  color: #fff!important;
+.rmdp-day,
+.rmdp-week-day {
+  color: #fff !important;
 }
-.rmdp-day.rmdp-selected span:not(.highlight){
-  background-color: rgb(199, 12, 96)!important;
+.rmdp-day.rmdp-selected span:not(.highlight) {
+  background-color: rgb(199, 12, 96) !important;
 }
-.rmdp-panel-body li, .rmdp-panel-body li.bg-blue{
-  background-color: rgba(27, 30, 202, 1)!important;
+.rmdp-panel-body li,
+.rmdp-panel-body li.bg-blue {
+  background-color: rgba(27, 30, 202, 1) !important;
 }
-.rmdp-day.rmdp-today span{
-  background-color: rgba(27, 30, 202, 1)!important;
+.rmdp-day.rmdp-today span {
+  background-color: rgba(27, 30, 202, 1) !important;
 }
-.rmdp-arrow{
-  border: solid rgb(199, 12, 96)!important;
-  border-width: 0 2px 2px 0!important;
+.rmdp-arrow {
+  border: solid rgb(199, 12, 96) !important;
+  border-width: 0 2px 2px 0 !important;
 }
-.rmdp-header-values{
-  color: rgb(199, 12, 96)!important;
+.rmdp-header-values {
+  color: rgb(199, 12, 96) !important;
 }
-.rmdp-panel-header{
-  color: rgb(199, 12, 96)!important;
+.rmdp-panel-header {
+  color: rgb(199, 12, 96) !important;
 }
-.rmdp-month-picker, .rmdp-year-picker{
-  background-color: rgba(27, 30, 202, 1)!important;
+.rmdp-month-picker,
+.rmdp-year-picker {
+  background-color: rgba(27, 30, 202, 1) !important;
 }
 /********ended*********/
 
 /*marquee*/
-.marquee{
+.marquee {
   width: 100%;
-    line-height: 10px;
-    background-color: rgba(27, 30, 202, 0.3);
-    color: white;
-    white-space: nowrap;
-    overflow: hidden;
-    box-sizing: border-box;
-    position: fixed;
+  line-height: 10px;
+  background-color: rgba(27, 30, 202, 0.3);
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+  position: fixed;
 }
 .marquee p {
   display: inline-block;
@@ -1011,8 +1032,12 @@ background-color: #233492;
   animation: marquee 25s linear infinite;
 }
 @keyframes marquee {
-  0%   { transform: translate(0, 0); }
-  100% { transform: translate(-100%, 0); }
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-100%, 0);
+  }
 }
 /*ended*/
 
@@ -1044,7 +1069,7 @@ background-color: #233492;
   .modal_style {
     width: 50%;
   }
-  .eidt_service_modal_style{
+  .eidt_service_modal_style {
     width: 60%;
   }
   .Nav {
@@ -1064,24 +1089,20 @@ background-color: #233492;
 }
 @media (max-width: 1440px) {
   .welcome-1 {
-    font-size: 30px;
-    margin-top: 25%;
+    font-size: 50px;
   }
   .welcome-2 {
     font-size: 50px;
   }
-  .welcome-3 {
-    font-size: 50px;
+  .welcome-ttg {
+    font-size: 70px;
   }
   .service-title-1 {
     margin-top: 10%;
   }
 }
 @media (max-width: 960px) {
-  .welcome-1 {
-    margin-top: 5%;
-  }
-  .admin_calendar{
+  .admin_calendar {
     width: 90%;
     margin-left: 0;
   }
@@ -1108,12 +1129,12 @@ background-color: #233492;
 }
 @media (max-width: 768px) {
   .partner_1 {
-    width: 140px;
+    width: 100px;
     height: 80px;
     margin-top: 30px;
   }
   .partner_2 {
-    width: 140px;
+    width: 100px;
     height: 80px;
     margin-top: 30px;
   }
@@ -1157,10 +1178,13 @@ background-color: #233492;
   .welcome {
     margin-left: 0;
   }
+  .welcome-2 {
+    margin-left: 20%;
+  }
   .welcome_image {
     width: 250px;
     margin-top: 50px;
-    margin-left: 30px;
+    margin-left: 15%;
   }
   .time_slot_title_date {
     font-size: 20px !important;
@@ -1205,7 +1229,7 @@ background-color: #233492;
   .modal_style {
     width: 90%;
   }
-  .eidt_service_modal_style{
+  .eidt_service_modal_style {
     width: 90%;
   }
   .log_out {
@@ -1218,18 +1242,20 @@ background-color: #233492;
   .token_dropdown-container {
     width: 30%;
   }
- .next_button{width: 80%;}
- .add_service_button{
-   width:70%;
-   margin-top: 0;
-   margin-bottom: 10px;
- }
+  .next_button {
+    width: 80%;
+  }
+  .add_service_button {
+    width: 70%;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
 }
 @media (max-width: 1280px) {
   .Burger {
     display: inline;
   }
-  .admin_left_bar{
+  .admin_left_bar {
     background-color: #081462;
   }
 }

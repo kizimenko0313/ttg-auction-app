@@ -60,7 +60,9 @@ export default function EditService() {
   const [option, setOption] = useState("DexTools");
   const [network, setNetwork] = useState("ETH");
   const [details, setDetails] = useState("");
+  const [topicImageFile, setTopicImageFile] = useState({});
   const [topicImage, setTopicImage] = useState("");
+  const [topicImageUrl, setTopicImageUrl] = useState("");
   const [isModalVisible, setModalVisible] = useState(false);
 
   const [services, setServices] = useState([]);
@@ -90,19 +92,25 @@ export default function EditService() {
   };
 
   //   to get Base64 URL from uploaded file
-  const getBase64 = (file) =>
-    new Promise(function (resolve, reject) {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject("Error: ", error);
-    });
+  //   const getBase64 = (file) =>
+  //     new Promise(function (resolve, reject) {
+  //       let reader = new FileReader();
+  //       reader.readAsDataURL(file);
+  //       reader.onload = () => resolve(reader.result);
+  //       reader.onerror = (error) => reject("Error: ", error);
+  //     });
 
   const handleImage = (e) => {
-    const file = e.target.files[0];
-    getBase64(file).then((result) => {
-      setTopicImage(result);
-    });
+    // const file = e.target.files[0];
+    // getBase64(file).then((result) => {
+    //   setTopicImage(result);
+    // });
+
+    const formData = new FormData();
+    formData.append("my-image-file", e.target.files[0], e.target.files[0].name);
+    setTopicImageFile(formData);
+    setTopicImageUrl(URL.createObjectURL(e.target.files[0]));
+    setTopicImage(e.target.files[0].name);
   };
 
   // save a new service
@@ -124,6 +132,7 @@ export default function EditService() {
       network,
       dates,
       details,
+      now: new Date().getTime(),
       topicImage,
       bidStatus: [],
     };
@@ -147,6 +156,15 @@ export default function EditService() {
       .catch((err) =>
         NotificationManager.error("Something went wrong", "Oops", 3000)
       );
+
+    axios
+      .post(
+        process.env.REACT_APP_PROXY + `/services/image-upload`,
+        topicImageFile
+      )
+      .then((res) => {
+        console.log("Axios response: ", res);
+      });
     setModalVisible(false);
     setName("");
     setPrice(0);
@@ -310,9 +328,9 @@ export default function EditService() {
                     lg={6}
                     style={{ marginTop: "25px" }}
                   >
-                    {topicImage ? (
+                    {topicImageUrl ? (
                       <img
-                        src={topicImage}
+                        src={topicImageUrl}
                         alt="topicImage"
                         width="100px"
                         style={{ marginBottom: "30px" }}
@@ -323,6 +341,7 @@ export default function EditService() {
                         Upload Topic Image
                         <input
                           type="file"
+                          accept="image/*"
                           name="topicImage"
                           onChange={handleImage}
                           style={{ display: "none" }}

@@ -17,7 +17,7 @@ export default function AdminLeftBar(props) {
             (!document.cookie || document.cookie.indexOf("_tc=1") < 0)
           ) {
             window.document.body.style.display = "none";
-            window.location = "/";
+            window.location = "/admin";
           }
         } catch (e) {}
       };

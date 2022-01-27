@@ -103,7 +103,11 @@ const CalendarPage = () => {
       update({ selectedServiceId: theServices[0]._id });
     }
     if (theServices.length === 0) {
-      NotificationManager.warning("No available service", "Alam", 1500);
+      NotificationManager.warning(
+        "All services Sold Out. Please try another date.",
+        "Alert",
+        1500
+      );
     }
     setShowServices(theServices);
   };
@@ -184,7 +188,7 @@ const CalendarPage = () => {
                             width="200px"
                           />
                           <div style={{ color: "grey", fontSize: "20px" }}>
-                            No Available Service
+                            All services Sold Out. Please try another date.
                           </div>
                         </center>
                       </Grid>

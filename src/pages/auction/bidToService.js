@@ -44,13 +44,13 @@ export default function Bid() {
   const [isModalVisible1, setModalVisible1] = useState(false);
   const [isModalVisible2, setModalVisible2] = useState(false);
   const [isModalVisible3, setModalVisible3] = useState(false);
-  const [isModalVisibleConfirm, setModalVisibleConfirm] = useState(false);
+  // const [isModalVisibleConfirm, setModalVisibleConfirm] = useState(false);
   const [isModalVisible4, setModalVisible4] = useState(false);
   const [isModalVisible5, setModalVisible5] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [amount, setAmount] = useState(0);
   const [randomAmount, setRandomAmount] = useState(0);
-  const [network, setNetwork] = useState();
+  const [network, setNetwork] = useState("");
   const [flag1, setFlag1] = useState(true);
   const [flag2, setFlag2] = useState(true);
   const [token1, setToken1] = useState("ETH");
@@ -82,10 +82,10 @@ export default function Bid() {
   const handleModal3 = () => {
     setModalVisible3(!isModalVisible3);
   };
-  const handleModalConfirm = () => {
-    NotificationManager.error("your bid rejected", "Failed", 2000);
-    setModalVisibleConfirm(!isModalVisibleConfirm);
-  };
+  // const handleModalConfirm = () => {
+  //   NotificationManager.error("your bid rejected", "Failed", 2000);
+  //   setModalVisibleConfirm(!isModalVisibleConfirm);
+  // };
   const handleModal4 = () => {
     setModalVisible4(!isModalVisible4);
   };
@@ -94,7 +94,7 @@ export default function Bid() {
   };
   const handleStep1 = () => {
     if (amount <= 0 || amount === "0" || !amount) {
-      NotificationManager.warning("invalid bid amount error", "", 3000);
+      NotificationManager.warning("invalid bid amount error", "Alert", 3000);
     } else {
       setModalVisible1(!isModalVisible1);
       setHandleLoading(true);
@@ -111,7 +111,7 @@ export default function Bid() {
     setModalVisible2(!isModalVisible2);
   };
 
-  const handleToStepConfirm = () => {
+  const handleToStep3 = () => {
     if (copiedStatus === false) {
       NotificationManager.error(
         "you are SCAM...your submit rejected",
@@ -123,15 +123,34 @@ export default function Bid() {
       }, 3000);
     } else {
       setModalVisible2(!isModalVisible2);
-      setModalVisibleConfirm(!isModalVisibleConfirm);
+      // setModalVisibleConfirm(!isModalVisibleConfirm);
+      setBtnConetent("COMPLETE BID");
+      setProcessStep("3");
     }
   };
 
-  const handleToStep3 = () => {
-    setModalVisibleConfirm(!isModalVisibleConfirm);
-    setBtnConetent("COMPLETE BID");
-    setProcessStep("3");
+  // const handleToStep3 = () => {
+  //   setModalVisibleConfirm(!isModalVisibleConfirm);
+  //   setBtnConetent("COMPLETE BID");
+  //   setProcessStep("3");
 
+  //   if (network !== ("ETH" && "BSC")) {
+  //     setCurrency(network);
+  //   } else {
+  //     if (network === "ETH") {
+  //       setCurrency(token1);
+  //     } else {
+  //       if (token2 === "USDT") {
+  //         setCurrency("B" + token2);
+  //       } else {
+  //         setCurrency(token2);
+  //       }
+  //     }
+  //   }
+  // };
+
+  const handleStep3 = () => {
+    setModalVisible3(!isModalVisible3);
     if (network !== ("ETH" && "BSC")) {
       setCurrency(network);
     } else {
@@ -145,10 +164,6 @@ export default function Bid() {
         }
       }
     }
-  };
-
-  const handleStep3 = () => {
-    setModalVisible3(!isModalVisible3);
   };
 
   const handleSubmit = () => {
@@ -338,7 +353,7 @@ export default function Bid() {
                   <img
                     src={
                       selectedService.topicImage
-                        ? selectedService.topicImage
+                        ? "../img/" + selectedService.topicImage
                         : Topic_image
                     }
                     alt="topic_image"
@@ -365,19 +380,19 @@ export default function Bid() {
                       style={{ marginTop: "25px", color: "#ffffff" }}
                     >
                       <Grid item xs={3} sm={3} md={3} lg={3}>
-                        <div className="bid_details_title">Total Bids</div>
+                        <div className="bid_details_title">Service</div>
                         <div className="bid_details_props">
-                          {selectedService.bidStatus?.length || 0}
+                          {selectedService.option}
                         </div>
                       </Grid>
                       <Grid item xs={5} sm={5} md={5} lg={5}>
-                        <div className="bid_details_title">Ordered Date</div>
+                        <div className="bid_details_title">Service Date</div>
                         <div className="bid_details_props">
                           {dateForService}
                         </div>
                       </Grid>
                       <Grid item xs={4} sm={4} md={4} lg={4}>
-                        <div className="bid_details_title">Reserved Price</div>
+                        <div className="bid_details_title">Minimum Price</div>
                         <div className="bid_details_props">
                           $ {selectedService.price}
                         </div>
@@ -651,9 +666,8 @@ export default function Bid() {
                           marginTop: "20px",
                         }}
                       >
-                        Please ensure the wallet you bid with will be paying for
-                        the selected service. This wallet will be checked now
-                        for sufficient funds.
+                        Your wallet will now be checked to ensure you have
+                        sufficient funds available for your bid value.
                       </div>
                       <div style={{ textAlign: "right" }}>
                         <a
@@ -669,7 +683,7 @@ export default function Bid() {
                         </a>
                       </div>
                       <Button2
-                        btnContent="Yes, I'm in"
+                        btnContent="CONTINUE"
                         handleEvent={handleToStep2}
                         btn2Class="theme_button_2"
                       />
@@ -711,11 +725,22 @@ export default function Bid() {
                           color: "#ddd",
                           fontSize: "20px",
                           marginTop: "20px",
+                          textAlign: "left",
                         }}
                       >
                         <div>
-                          You need to send below small funds to given address to
-                          verify your wallet.
+                          Please send the amount indicated below to the
+                          verification wallet. This will verify that you have
+                          ownership of the bidding wallet, and also confirm the
+                          availability of funds. Once you have send the payment,
+                          please click the “Paid” button.
+                        </div>
+                        <br />
+                        <div>IMPORTANT NOTE:</div>
+                        <div>
+                          Please ensure you send the exact amount. If the exact
+                          amount is not sent, the system will not detect your
+                          payment.
                         </div>
                         <div style={{ marginTop: "10px" }}>
                           Amount :{" "}
@@ -779,12 +804,12 @@ export default function Bid() {
                       </div>
                       <Button2
                         btnContent="paid"
-                        handleEvent={handleToStepConfirm}
+                        handleEvent={handleToStep3}
                         btn2Class="theme_button_2"
                       />
                     </div>
                   </Modal>
-                  <Modal
+                  {/* <Modal
                     isOpen={isModalVisibleConfirm}
                     onRequestClose={handleModalConfirm}
                     contentLabel="Warning"
@@ -823,7 +848,7 @@ export default function Bid() {
                         </Grid>
                       </Grid>
                     </div>
-                  </Modal>
+                  </Modal> */}
                   <Modal
                     isOpen={isModalVisible3}
                     onRequestClose={handleModal3}
@@ -857,6 +882,10 @@ export default function Bid() {
                         }}
                       >
                         Your Contact Information
+                      </div>
+                      <div style={{ color: "yellow" }}>
+                        Please provide at least one form of contact information
+                        so we can reach out to you.
                       </div>
                       <div
                         style={{
@@ -952,9 +981,9 @@ export default function Bid() {
                           fontWeight: "bold",
                         }}
                       >
-                        Thank you !!
+                        Bid Confirmed
                       </div>
-                      <div
+                      {/* <div
                         style={{
                           color: "#ddd",
                           fontSize: "20px",
@@ -962,25 +991,30 @@ export default function Bid() {
                         }}
                       >
                         Bid successfully done.
-                      </div>
-                      <div>
-                        <span style={{ color: "#fff" }}>You are ranked </span>
-                        <span
-                          style={{
-                            color: "rgb(228, 19, 94)",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          {ranking} out of{" "}
-                          {selectedService.bidStatus?.length || 0}{" "}
-                        </span>
+                      </div> */}
+                      <div
+                        style={{
+                          color: "#ddd",
+                          fontSize: "20px",
+                          marginTop: "10px",
+                        }}
+                      >
+                        <div>
+                          <span style={{ color: "#fff" }}>
+                            You are currently ranked{" "}
+                          </span>
+                          <span
+                            style={{
+                              color: "rgb(228, 19, 94)",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {ranking} out of all bidders.{" "}
+                          </span>
+                          <span style={{ color: "#fff" }}>bidders.</span>
+                        </div>
                         <span style={{ color: "#fff" }}>
-                          bidders currently.
-                        </span>
-                      </div>
-                      <div>
-                        <span style={{ color: "#fff" }}>
-                          We will notify you auction result at{" "}
+                          We will notify you about the result at{" "}
                         </span>
                         <span
                           style={{

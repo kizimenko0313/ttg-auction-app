@@ -21,6 +21,9 @@ let serviceSchema = new Schema(
     details: {
       type: String,
     },
+    now: {
+      type: String,
+    },
     topicImage: {
       type: String,
     },

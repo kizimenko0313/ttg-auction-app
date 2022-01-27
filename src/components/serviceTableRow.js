@@ -72,7 +72,9 @@ export default function ServiceTableRow(props) {
   const [network1, setNetwork] = useState("");
   const [details1, setDetails] = useState("");
   const [dates1, setDates] = useState([]);
+  const [topicImageFile, setTopicImageFile] = useState({});
   const [topicImage1, setTopicImage] = useState("");
+  const [topicImageUrl, setTopicImageUrl] = useState("");
   const [isModalVisible, setModalVisible] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [moreDetails, setMoreDetails] = useState(false);
@@ -96,19 +98,25 @@ export default function ServiceTableRow(props) {
   };
 
   //   to get Base64 URL from uploaded file
-  const getBase64 = (file) =>
-    new Promise(function (resolve, reject) {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject("Error: ", error);
-    });
+  // const getBase64 = (file) =>
+  //   new Promise(function (resolve, reject) {
+  //     let reader = new FileReader();
+  //     reader.readAsDataURL(file);
+  //     reader.onload = () => resolve(reader.result);
+  //     reader.onerror = (error) => reject("Error: ", error);
+  //   });
 
   const handleImage = (e) => {
-    const file = e.target.files[0];
-    getBase64(file).then((result) => {
-      setTopicImage(result);
-    });
+    // const file = e.target.files[0];
+    // getBase64(file).then((result) => {
+    //   setTopicImage(result);
+    // });
+
+    const formData = new FormData();
+    formData.append("my-image-file", e.target.files[0], e.target.files[0].name);
+    setTopicImageFile(formData);
+    setTopicImageUrl(URL.createObjectURL(e.target.files[0]));
+    setTopicImage(e.target.files[0].name);
   };
 
   const handleMore = () => {
@@ -153,6 +161,14 @@ export default function ServiceTableRow(props) {
       .catch((err) =>
         NotificationManager.error("Something went wrong !", "Oops", 2000)
       );
+    axios
+      .post(
+        process.env.REACT_APP_PROXY + `/services/image-upload`,
+        topicImageFile
+      )
+      .then((res) => {
+        console.log("Axios response: ", res);
+      });
     setModalVisible(false);
   };
   const deleteService = () => {
@@ -242,7 +258,7 @@ export default function ServiceTableRow(props) {
         <div style={{ color: "lightgreen" }}>available</div>
       </td>
       <td>
-        <img src={topicImage} alt="topic" width="50px" />
+        <img src={"../img/" + topicImage} alt="topic" width="50px" />
       </td>
       <td>
         {bidStatus.length === 0 ? (
@@ -352,14 +368,14 @@ export default function ServiceTableRow(props) {
                     lg={6}
                     style={{ marginTop: "25px" }}
                   >
-                    {topicImage ? (
-                      <img
-                        src={topicImage1}
-                        alt="topicImage"
-                        width="100px"
-                        style={{ marginBottom: "30px" }}
-                      />
-                    ) : null}
+                    <img
+                      src={
+                        topicImageUrl ? topicImageUrl : "../img/" + topicImage
+                      }
+                      alt="topicImage"
+                      width="100px"
+                      style={{ marginBottom: "30px" }}
+                    />
                     <div>
                       <label className="uploadTopicImageButton">
                         Change Topic Image
