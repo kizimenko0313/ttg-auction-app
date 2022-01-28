@@ -56,6 +56,7 @@ export default function BidRecord() {
                   <th style={{ borderRadius: "15px 0 0 15px" }}>ID</th>
                   <th>Service</th>
                   <th>ServiceOption</th>
+                  <th>ServiceURL</th>
                   <th>Reserved Price($)</th>
                   <th>Wallet Address</th>
                   <th>Balance</th>

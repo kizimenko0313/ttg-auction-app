@@ -7,6 +7,7 @@ export default function WinnersTableRow(props) {
       <td></td>
       <td>{props.obj.serviceName}</td>
       <td>{props.obj.serviceOption}</td>
+      <td>{props.obj.serviceUrl}</td>
       <td>{props.obj.price}</td>
       <td>{props.obj.bidders}</td>
       <td>

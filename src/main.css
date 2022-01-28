@@ -546,6 +546,9 @@
   font-size: 27px;
   color: #fff;
   font-weight: bold;
+  outline: none;
+  border: none;
+  width: 85%;
 }
 .connect_wallet_button {
   color: #e40a58;

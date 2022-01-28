@@ -71,6 +71,7 @@ export default function WinnerRecord() {
                   <th style={{ borderRadius: "15px 0 0 15px" }}>ID</th>
                   <th>Service</th>
                   <th>ServiceOption</th>
+                  <th>ServiceUrl</th>
                   <th>Reserved Price($)</th>
                   <th>Total Bidder</th>
                   <th>Wallet Address</th>

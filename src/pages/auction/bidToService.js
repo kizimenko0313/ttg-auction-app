@@ -40,6 +40,7 @@ export default function Bid() {
   const refContainer = useRef(null);
   const refTelegram = useRef(null);
   const refEmail = useRef(null);
+  const refServiceUrl = useRef(null);
   const [btnContent, setBtnConetent] = useState("");
   const [isModalVisible1, setModalVisible1] = useState(false);
   const [isModalVisible2, setModalVisible2] = useState(false);
@@ -49,6 +50,7 @@ export default function Bid() {
   const [isModalVisible5, setModalVisible5] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [amount, setAmount] = useState(0);
+  const [serviceUrl, setServiceUrl] = useState("");
   const [randomAmount, setRandomAmount] = useState(0);
   const [network, setNetwork] = useState("");
   const [flag1, setFlag1] = useState(true);
@@ -93,12 +95,21 @@ export default function Bid() {
     setModalVisible5(!isModalVisible5);
   };
   const handleStep1 = () => {
+    if (
+      serviceUrl !== "" &&
+      !/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_.~#?&//=]*)/g.test(
+        serviceUrl
+      )
+    ) {
+      refServiceUrl.current.select();
+      return;
+    }
     if (amount <= 0 || amount === "0" || !amount) {
       NotificationManager.warning("invalid bid amount error", "Alert", 3000);
-    } else {
-      setModalVisible1(!isModalVisible1);
-      setHandleLoading(true);
+      return;
     }
+    setModalVisible1(!isModalVisible1);
+    setHandleLoading(true);
   };
   const handleToStep2 = () => {
     setModalVisible1(!isModalVisible1);
@@ -198,6 +209,7 @@ export default function Bid() {
       currency: currency,
       userBalance: userBalance,
       contactInfor: contactInfor,
+      serviceUrl: serviceUrl,
     };
     bidStatus.push(bidderDocument);
     const serviceObject = { bidStatus: bidStatus };
@@ -314,10 +326,10 @@ export default function Bid() {
                 fontWeight: "bold",
               }}
             >
-              {ranking} out of {selectedService.bidStatus?.length || 0}{" "}
+              {ranking}{" "}
             </span>
             <span style={{ color: "#fff" }}>
-              bidders currently. We will notify you auction result at{" "}
+              out of all bidders currently. We will notify you auction result at{" "}
             </span>
             <span
               style={{
@@ -403,413 +415,472 @@ export default function Bid() {
               </Grid>
             </div>
             <div className="service_description">{selectedService.details}</div>
-            <div className="bid_value">
+            <Grid container>
               {processStep !== "completed" ? (
-                <div className="bid_value_title">Add Bid Value</div>
+                <Grid item xs={12} sm={12} md={5} lg={5}>
+                  <div className="bid_value_title">Add Service URL</div>
+                  <input
+                    ref={refServiceUrl}
+                    type="text"
+                    placeholder="https://..."
+                    value={serviceUrl}
+                    onChange={(e) => setServiceUrl(e.target.value)}
+                    className="bid_value_input"
+                  />
+                </Grid>
               ) : null}
-              <div className="bid_value_submit">
-                <Grid container>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={processStep !== "completed" ? 7 : 12}
+                lg={processStep !== "completed" ? 7 : 12}
+              >
+                <div className="bid_value">
                   {processStep !== "completed" ? (
-                    <Grid item xs={12} sm={7} md={8} lg={9}>
-                      <div className="bid_value_input">
-                        <Grid container>
-                          <Grid item xs={5} sm={6} md={6} lg={6}>
-                            <center>
-                              <input
-                                type="number"
-                                placeholder="0.00"
-                                value={amount}
-                                onChange={(e) => handleAmount(e)}
-                                className="input_amount_style"
-                              />
-                            </center>
-                          </Grid>
-                          <Grid item xs={7} sm={6} md={6} lg={6}>
-                            <center>
-                              {network === "FANTOM" && (
-                                <div>
-                                  <span>
-                                    <img
-                                      src={Fantom}
-                                      alt="fantom"
-                                      width="25px"
-                                    />
-                                  </span>
-                                  <span>FTM</span>
-                                </div>
-                              )}
-                              {network === "MATIC" && (
-                                <div>
-                                  <span>
-                                    <img src={Matic} alt="matic" width="20px" />
-                                  </span>
-                                  <span style={{ marginLeft: "10px" }}>
-                                    MATIC
-                                  </span>
-                                </div>
-                              )}
-                              {network === "ETH" && (
-                                <div ref={refContainer}>
-                                  <button
-                                    className="token_dropdown"
-                                    onMouseDown={() => setFlag1(!flag1)}
-                                  >
-                                    <img
-                                      src={token1 === "ETH" ? ETH : USDT}
-                                      alt={token1}
-                                      width="16px"
-                                    />
-                                    <span className="token_dropdown-token">
-                                      {" "}
-                                      {token1}
-                                    </span>
-                                    <ExpandMoreIcon
-                                      style={{
-                                        color: "#d31056",
-                                        marginLeft: "10px",
-                                      }}
-                                    />
-                                  </button>
-                                  <div
-                                    className="token_dropdown-container"
-                                    style={flag1 ? { display: "none" } : null}
-                                  >
-                                    <div>
-                                      <button
-                                        className="token_dropdown-item"
-                                        ref={refContainer}
-                                        onClick={(e) => handleToken1(e, "ETH")}
-                                      >
-                                        <img src={ETH} alt="ETH" width="16px" />
-                                        <span className="token_dropdown-token">
-                                          {" "}
-                                          ETH
-                                        </span>
-                                      </button>
-                                    </div>
-                                    <div>
-                                      <button
-                                        className="token_dropdown-item"
-                                        onClick={(e) => handleToken1(e, "USDT")}
-                                      >
-                                        <img
-                                          src={USDT}
-                                          alt="USDT"
-                                          width="20px"
-                                        />
-                                        <span className="token_dropdown-token">
-                                          {" "}
-                                          USDT
-                                        </span>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                              {network === "BSC" && (
-                                <div ref={refContainer}>
-                                  <button
-                                    className="token_dropdown"
-                                    onMouseDown={() => setFlag2(!flag2)}
-                                  >
-                                    <img
-                                      src={
-                                        token2 === "BNB"
-                                          ? BSC
-                                          : token2 === "USDT"
-                                          ? USDT
-                                          : BUSD
-                                      }
-                                      alt={token2}
-                                      width="20px"
-                                    />
-                                    <span className="token_dropdown-token">
-                                      {" "}
-                                      {token2}
-                                    </span>
-                                    <ExpandMoreIcon
-                                      style={{
-                                        color: "#d31056",
-                                        marginLeft: "10px",
-                                      }}
-                                    />
-                                  </button>
-                                  <div
-                                    className="token_dropdown-container"
-                                    style={flag2 ? { display: "none" } : null}
-                                  >
-                                    <div>
-                                      <button
-                                        className="token_dropdown-item"
-                                        ref={refContainer}
-                                        onClick={(e) => handleToken2(e, "BNB")}
-                                      >
-                                        <img src={BSC} alt="BNB" width="20px" />
-                                        <span className="token_dropdown-token">
-                                          {" "}
-                                          BNB
-                                        </span>
-                                      </button>
-                                    </div>
-                                    <div>
-                                      <button
-                                        className="token_dropdown-item"
-                                        onClick={(e) => handleToken2(e, "BUSD")}
-                                      >
-                                        <img
-                                          src={BUSD}
-                                          alt="BUSD"
-                                          width="20px"
-                                        />
-                                        <span className="token_dropdown-token">
-                                          {" "}
-                                          BUSD
-                                        </span>
-                                      </button>
-                                    </div>
-                                    <div>
-                                      <button
-                                        className="token_dropdown-item"
-                                        onClick={(e) => handleToken2(e, "USDT")}
-                                      >
-                                        <img
-                                          src={USDT}
-                                          alt="USDT"
-                                          width="20px"
-                                        />
-                                        <span className="token_dropdown-token">
-                                          {" "}
-                                          USDT
-                                        </span>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                            </center>
-                          </Grid>
-                        </Grid>
-                      </div>
-                    </Grid>
+                    <div className="bid_value_title">Bid Price</div>
                   ) : null}
-                  <Grid
-                    item
-                    xs={12}
-                    sm={processStep !== "completed" ? 5 : 12}
-                    md={processStep !== "completed" ? 4 : 12}
-                    lg={processStep !== "completed" ? 3 : 12}
-                  >
-                    {processStep === "1" ? (
-                      <Button1
-                        btnContent={btnContent}
-                        btn1Class="theme_button_1"
-                        handleEvent={handleStep1}
-                      />
-                    ) : processStep === "2" ? (
-                      <Button1
-                        btnContent={btnContent}
-                        btn1Class="theme_button_1"
-                        handleEvent={handleStep2}
-                      />
-                    ) : processStep === "3" ? (
-                      <Button1
-                        btnContent={btnContent}
-                        btn1Class="theme_button_1"
-                        handleEvent={handleStep3}
-                      />
-                    ) : processStep === "completed" ? (
-                      <Button1
-                        btnContent={btnContent}
-                        btn1Class="theme_button_1_disabled"
-                      />
-                    ) : null}
-                  </Grid>
-                  <div style={{ marginLeft: "45%", marginTop: "50px" }}>
-                    {handleLoading ? (
-                      <img src={Loading} alt="loading" width="20%" />
-                    ) : null}
-                  </div>
-                  <Modal
-                    isOpen={isModalVisible1}
-                    onRequestClose={handleModal1}
-                    contentLabel="Warning"
-                    className="modal_style"
-                    ariaHideApp={false}
-                    shouldCloseOnOverlayClick={false}
-                  >
-                    <div style={{ textAlign: "center", padding: "20px" }}>
-                      <div
-                        style={{
-                          padding: "6px",
-                          borderRadius: "50%",
-                          color: "white",
-                          width: "20px",
-                          height: "20px",
-                          marginLeft: "95%",
-                          cursor: "pointer",
-                          backgroundColor: "#574c81",
-                          textAlign: "center",
-                        }}
-                        onClick={handleModal1}
+                  <div className="bid_value_submit">
+                    <Grid container>
+                      {processStep !== "completed" ? (
+                        <Grid item xs={12} sm={7} md={8} lg={9}>
+                          <div className="bid_value_input">
+                            <Grid container>
+                              <Grid item xs={5} sm={6} md={6} lg={6}>
+                                <center>
+                                  <input
+                                    type="number"
+                                    placeholder="0.00"
+                                    value={amount}
+                                    onChange={(e) => handleAmount(e)}
+                                    className="input_amount_style"
+                                  />
+                                </center>
+                              </Grid>
+                              <Grid item xs={7} sm={6} md={6} lg={6}>
+                                <center>
+                                  {network === "FANTOM" && (
+                                    <div>
+                                      <span>
+                                        <img
+                                          src={Fantom}
+                                          alt="fantom"
+                                          width="25px"
+                                        />
+                                      </span>
+                                      <span>FTM</span>
+                                    </div>
+                                  )}
+                                  {network === "MATIC" && (
+                                    <div>
+                                      <span>
+                                        <img
+                                          src={Matic}
+                                          alt="matic"
+                                          width="20px"
+                                        />
+                                      </span>
+                                      <span style={{ marginLeft: "10px" }}>
+                                        MATIC
+                                      </span>
+                                    </div>
+                                  )}
+                                  {network === "ETH" && (
+                                    <div ref={refContainer}>
+                                      <button
+                                        className="token_dropdown"
+                                        onMouseDown={() => setFlag1(!flag1)}
+                                      >
+                                        <img
+                                          src={token1 === "ETH" ? ETH : USDT}
+                                          alt={token1}
+                                          width="16px"
+                                        />
+                                        <span className="token_dropdown-token">
+                                          {" "}
+                                          {token1}
+                                        </span>
+                                        <ExpandMoreIcon
+                                          style={{
+                                            color: "#d31056",
+                                            marginLeft: "10px",
+                                          }}
+                                        />
+                                      </button>
+                                      <div
+                                        className="token_dropdown-container"
+                                        style={
+                                          flag1 ? { display: "none" } : null
+                                        }
+                                      >
+                                        <div>
+                                          <button
+                                            className="token_dropdown-item"
+                                            ref={refContainer}
+                                            onClick={(e) =>
+                                              handleToken1(e, "ETH")
+                                            }
+                                          >
+                                            <img
+                                              src={ETH}
+                                              alt="ETH"
+                                              width="16px"
+                                            />
+                                            <span className="token_dropdown-token">
+                                              {" "}
+                                              ETH
+                                            </span>
+                                          </button>
+                                        </div>
+                                        <div>
+                                          <button
+                                            className="token_dropdown-item"
+                                            onClick={(e) =>
+                                              handleToken1(e, "USDT")
+                                            }
+                                          >
+                                            <img
+                                              src={USDT}
+                                              alt="USDT"
+                                              width="20px"
+                                            />
+                                            <span className="token_dropdown-token">
+                                              {" "}
+                                              USDT
+                                            </span>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
+                                  {network === "BSC" && (
+                                    <div ref={refContainer}>
+                                      <button
+                                        className="token_dropdown"
+                                        onMouseDown={() => setFlag2(!flag2)}
+                                      >
+                                        <img
+                                          src={
+                                            token2 === "BNB"
+                                              ? BSC
+                                              : token2 === "USDT"
+                                              ? USDT
+                                              : BUSD
+                                          }
+                                          alt={token2}
+                                          width="20px"
+                                        />
+                                        <span className="token_dropdown-token">
+                                          {" "}
+                                          {token2}
+                                        </span>
+                                        <ExpandMoreIcon
+                                          style={{
+                                            color: "#d31056",
+                                            marginLeft: "10px",
+                                          }}
+                                        />
+                                      </button>
+                                      <div
+                                        className="token_dropdown-container"
+                                        style={
+                                          flag2 ? { display: "none" } : null
+                                        }
+                                      >
+                                        <div>
+                                          <button
+                                            className="token_dropdown-item"
+                                            ref={refContainer}
+                                            onClick={(e) =>
+                                              handleToken2(e, "BNB")
+                                            }
+                                          >
+                                            <img
+                                              src={BSC}
+                                              alt="BNB"
+                                              width="20px"
+                                            />
+                                            <span className="token_dropdown-token">
+                                              {" "}
+                                              BNB
+                                            </span>
+                                          </button>
+                                        </div>
+                                        <div>
+                                          <button
+                                            className="token_dropdown-item"
+                                            onClick={(e) =>
+                                              handleToken2(e, "BUSD")
+                                            }
+                                          >
+                                            <img
+                                              src={BUSD}
+                                              alt="BUSD"
+                                              width="20px"
+                                            />
+                                            <span className="token_dropdown-token">
+                                              {" "}
+                                              BUSD
+                                            </span>
+                                          </button>
+                                        </div>
+                                        <div>
+                                          <button
+                                            className="token_dropdown-item"
+                                            onClick={(e) =>
+                                              handleToken2(e, "USDT")
+                                            }
+                                          >
+                                            <img
+                                              src={USDT}
+                                              alt="USDT"
+                                              width="20px"
+                                            />
+                                            <span className="token_dropdown-token">
+                                              {" "}
+                                              USDT
+                                            </span>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
+                                </center>
+                              </Grid>
+                            </Grid>
+                          </div>
+                        </Grid>
+                      ) : null}
+                      <Grid
+                        item
+                        xs={12}
+                        sm={processStep !== "completed" ? 5 : 12}
+                        md={processStep !== "completed" ? 4 : 12}
+                        lg={processStep !== "completed" ? 3 : 12}
                       >
-                        X{" "}
+                        {processStep === "1" ? (
+                          serviceUrl ? (
+                            <Button1
+                              btnContent={btnContent}
+                              btn1Class="theme_button_1"
+                              handleEvent={handleStep1}
+                            />
+                          ) : (
+                            <Button1
+                              btnContent={btnContent}
+                              btn1Class="theme_button_1_disabled"
+                              handleEvent={handleStep1}
+                              disabled={true}
+                            />
+                          )
+                        ) : processStep === "2" ? (
+                          <Button1
+                            btnContent={btnContent}
+                            btn1Class="theme_button_1"
+                            handleEvent={handleStep2}
+                          />
+                        ) : processStep === "3" ? (
+                          <Button1
+                            btnContent={btnContent}
+                            btn1Class="theme_button_1"
+                            handleEvent={handleStep3}
+                          />
+                        ) : processStep === "completed" ? (
+                          <Button1
+                            btnContent={btnContent}
+                            btn1Class="theme_button_1_disabled"
+                          />
+                        ) : null}
+                      </Grid>
+                      <div style={{ marginLeft: "45%", marginTop: "50px" }}>
+                        {handleLoading ? (
+                          <img src={Loading} alt="loading" width="20%" />
+                        ) : null}
                       </div>
-                      <img
-                        src={WalletImage}
-                        alt="wallet_icon"
-                        className="wallet_icon"
-                      />
-                      <div
-                        style={{
-                          color: "#ddd",
-                          fontSize: "20px",
-                          marginTop: "20px",
-                        }}
+                      <Modal
+                        isOpen={isModalVisible1}
+                        onRequestClose={handleModal1}
+                        contentLabel="Warning"
+                        className="modal_style"
+                        ariaHideApp={false}
+                        shouldCloseOnOverlayClick={false}
                       >
-                        Your wallet will now be checked to ensure you have
-                        sufficient funds available for your bid value.
-                      </div>
-                      <div style={{ textAlign: "right" }}>
-                        <a
-                          href="/faq"
-                          target="_blank"
-                          style={{
-                            color: "yellow",
-                            textAlign: "left!important",
-                          }}
-                        >
-                          Learn more
-                          <img src={Clip_funnel} alt="clip" />
-                        </a>
-                      </div>
-                      <Button2
-                        btnContent="CONTINUE"
-                        handleEvent={handleToStep2}
-                        btn2Class="theme_button_2"
-                      />
-                    </div>
-                  </Modal>
-                  <Modal
-                    isOpen={isModalVisible2}
-                    onRequestClose={handleModal2}
-                    contentLabel="Warning"
-                    className="modal_style"
-                    ariaHideApp={false}
-                    shouldCloseOnOverlayClick={false}
-                  >
-                    <div style={{ textAlign: "center", padding: "20px" }}>
-                      <div
-                        style={{
-                          padding: "6px",
-                          borderRadius: "50%",
-                          color: "white",
-                          width: "20px",
-                          height: "20px",
-                          marginLeft: "95%",
-                          cursor: "pointer",
-                          backgroundColor: "#574c81",
-                          textAlign: "center",
-                        }}
-                        onClick={handleModal2}
-                      >
-                        X{" "}
-                      </div>
-                      <img
-                        src={sendMoney}
-                        alt="wallet_icon"
-                        width="150px"
-                        className="wallet_icon"
-                      />
-                      <div
-                        style={{
-                          color: "#ddd",
-                          fontSize: "20px",
-                          marginTop: "20px",
-                          textAlign: "left",
-                        }}
-                      >
-                        <div>
-                          Please send the amount indicated below to the
-                          verification wallet. This will verify that you have
-                          ownership of the bidding wallet, and also confirm the
-                          availability of funds. Once you have send the payment,
-                          please click the “Paid” button.
-                        </div>
-                        <br />
-                        <div>IMPORTANT NOTE:</div>
-                        <div>
-                          Please ensure you send the exact amount. If the exact
-                          amount is not sent, the system will not detect your
-                          payment.
-                        </div>
-                        <div style={{ marginTop: "10px" }}>
-                          Amount :{" "}
-                          <span style={{ color: "#b6a026" }}>
-                            {" "}
-                            {randomAmount +
-                              (network === ("MATIC" || "FANTOM")
-                                ? network
-                                : network === "ETH"
-                                ? token1
-                                : token2)}
-                          </span>
-                        </div>
-                        <div>
-                          Address:
-                          <span
-                            style={{ color: "#b6a026", wordBreak: "break-all" }}
+                        <div style={{ textAlign: "center", padding: "20px" }}>
+                          <div
+                            style={{
+                              padding: "6px",
+                              borderRadius: "50%",
+                              color: "white",
+                              width: "20px",
+                              height: "20px",
+                              marginLeft: "95%",
+                              cursor: "pointer",
+                              backgroundColor: "#574c81",
+                              textAlign: "center",
+                            }}
+                            onClick={handleModal1}
                           >
-                            <CopyToClipboard text="0xA4416BcC73f848f516a059dE6836FE29d47d7Ce5">
+                            X{" "}
+                          </div>
+                          <img
+                            src={WalletImage}
+                            alt="wallet_icon"
+                            className="wallet_icon"
+                          />
+                          <div
+                            style={{
+                              color: "#ddd",
+                              fontSize: "20px",
+                              marginTop: "20px",
+                            }}
+                          >
+                            Your wallet will now be checked to ensure you have
+                            sufficient funds available for your bid value.
+                          </div>
+                          <div style={{ textAlign: "right" }}>
+                            <a
+                              href="/faq"
+                              target="_blank"
+                              style={{
+                                color: "yellow",
+                                textAlign: "left!important",
+                              }}
+                            >
+                              Learn more
+                              <img src={Clip_funnel} alt="clip" />
+                            </a>
+                          </div>
+                          <Button2
+                            btnContent="CONTINUE"
+                            handleEvent={handleToStep2}
+                            btn2Class="theme_button_2"
+                          />
+                        </div>
+                      </Modal>
+                      <Modal
+                        isOpen={isModalVisible2}
+                        onRequestClose={handleModal2}
+                        contentLabel="Warning"
+                        className="modal_style"
+                        ariaHideApp={false}
+                        shouldCloseOnOverlayClick={false}
+                      >
+                        <div style={{ textAlign: "center", padding: "20px" }}>
+                          <div
+                            style={{
+                              padding: "6px",
+                              borderRadius: "50%",
+                              color: "white",
+                              width: "20px",
+                              height: "20px",
+                              marginLeft: "95%",
+                              cursor: "pointer",
+                              backgroundColor: "#574c81",
+                              textAlign: "center",
+                            }}
+                            onClick={handleModal2}
+                          >
+                            X{" "}
+                          </div>
+                          <img
+                            src={sendMoney}
+                            alt="wallet_icon"
+                            width="150px"
+                            className="wallet_icon"
+                          />
+                          <div
+                            style={{
+                              color: "#ddd",
+                              fontSize: "20px",
+                              marginTop: "20px",
+                              textAlign: "left",
+                            }}
+                          >
+                            <div>
+                              Please send the amount indicated below to the
+                              verification wallet. This will verify that you
+                              have ownership of the bidding wallet, and also
+                              confirm the availability of funds. Once you have
+                              send the payment, please click the “Paid” button.
+                            </div>
+                            <br />
+                            <div>IMPORTANT NOTE:</div>
+                            <div>
+                              Please ensure you send the exact amount. If the
+                              exact amount is not sent, the system will not
+                              detect your payment.
+                            </div>
+                            <div style={{ marginTop: "10px" }}>
+                              Amount :{" "}
+                              <span style={{ color: "#b6a026" }}>
+                                {" "}
+                                {randomAmount +
+                                  (network === ("MATIC" || "FANTOM")
+                                    ? network
+                                    : network === "ETH"
+                                    ? token1
+                                    : token2)}
+                              </span>
+                            </div>
+                            <div>
+                              Address:
                               <span
-                                style={{ cursor: "pointer" }}
-                                onClick={() => {
-                                  setIsCopied(true);
-                                  setCopiedStatus(true);
-                                  NotificationManager.success(
-                                    "copied to clipboard"
-                                  );
-                                  setTimeout(() => {
-                                    setIsCopied(false);
-                                  }, 1000);
+                                style={{
+                                  color: "#b6a026",
+                                  wordBreak: "break-all",
                                 }}
                               >
-                                0xA4416BcC73...47d7Ce5
-                                <span>
-                                  <img
-                                    src={copyClip}
-                                    alt="copy"
-                                    style={{ marginLeft: "30px" }}
-                                  ></img>
-                                </span>
-                                <span style={{ color: "green " }}>
-                                  {isCopied ? "Copied !" : "Copy"}
-                                </span>
+                                <CopyToClipboard text="0xA4416BcC73f848f516a059dE6836FE29d47d7Ce5">
+                                  <span
+                                    style={{ cursor: "pointer" }}
+                                    onClick={() => {
+                                      setIsCopied(true);
+                                      setCopiedStatus(true);
+                                      NotificationManager.success(
+                                        "copied to clipboard"
+                                      );
+                                      setTimeout(() => {
+                                        setIsCopied(false);
+                                      }, 1000);
+                                    }}
+                                  >
+                                    0xA4416BcC73...47d7Ce5
+                                    <span>
+                                      <img
+                                        src={copyClip}
+                                        alt="copy"
+                                        style={{ marginLeft: "30px" }}
+                                      ></img>
+                                    </span>
+                                    <span style={{ color: "green " }}>
+                                      {isCopied ? "Copied !" : "Copy"}
+                                    </span>
+                                  </span>
+                                </CopyToClipboard>
                               </span>
-                            </CopyToClipboard>
-                          </span>
+                            </div>
+                          </div>
+                          <div style={{ textAlign: "right" }}>
+                            <a
+                              href="/faq"
+                              target="_blank"
+                              style={{
+                                color: "yellow",
+                                textAlign: "left!important",
+                              }}
+                            >
+                              Learn more
+                              <img src={Clip_funnel} alt="clip" />
+                            </a>
+                          </div>
+                          <Button2
+                            btnContent="paid"
+                            handleEvent={handleToStep3}
+                            btn2Class="theme_button_2"
+                          />
                         </div>
-                      </div>
-                      <div style={{ textAlign: "right" }}>
-                        <a
-                          href="/faq"
-                          target="_blank"
-                          style={{
-                            color: "yellow",
-                            textAlign: "left!important",
-                          }}
-                        >
-                          Learn more
-                          <img src={Clip_funnel} alt="clip" />
-                        </a>
-                      </div>
-                      <Button2
-                        btnContent="paid"
-                        handleEvent={handleToStep3}
-                        btn2Class="theme_button_2"
-                      />
-                    </div>
-                  </Modal>
-                  {/* <Modal
+                      </Modal>
+                      {/* <Modal
                     isOpen={isModalVisibleConfirm}
                     onRequestClose={handleModalConfirm}
                     contentLabel="Warning"
@@ -849,141 +920,147 @@ export default function Bid() {
                       </Grid>
                     </div>
                   </Modal> */}
-                  <Modal
-                    isOpen={isModalVisible3}
-                    onRequestClose={handleModal3}
-                    contentLabel="Warning"
-                    className="modal_style"
-                    ariaHideApp={false}
-                    shouldCloseOnOverlayClick={false}
-                  >
-                    <div style={{ textAlign: "center", padding: "20px" }}>
-                      <div
-                        style={{
-                          padding: "6px",
-                          borderRadius: "50%",
-                          color: "white",
-                          width: "20px",
-                          height: "20px",
-                          marginLeft: "95%",
-                          cursor: "pointer",
-                          backgroundColor: "#574c81",
-                          textAlign: "center",
-                        }}
-                        onClick={handleModal3}
+                      <Modal
+                        isOpen={isModalVisible3}
+                        onRequestClose={handleModal3}
+                        contentLabel="Warning"
+                        className="modal_style"
+                        ariaHideApp={false}
+                        shouldCloseOnOverlayClick={false}
                       >
-                        X{" "}
-                      </div>
-                      <div
-                        style={{
-                          color: "#fff",
-                          fontSize: "27px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        Your Contact Information
-                      </div>
-                      <div style={{ color: "yellow" }}>
-                        Please provide at least one form of contact information
-                        so we can reach out to you.
-                      </div>
-                      <div
-                        style={{
-                          color: "#ddd",
-                          fontSize: "20px",
-                          marginTop: "20px",
-                        }}
-                      >
-                        <div>
-                          <span style={{ marginRight: "20px" }}>
-                            <img src={Telegram} alt="telegram" width="20px" />
-                          </span>
-                          <input
-                            ref={refTelegram}
-                            type="text"
-                            placeholder="Your Telegram Username.."
-                            className="input_text_style"
-                            value={telegram}
-                            onChange={(e) => setTelegram(e.target.value)}
+                        <div style={{ textAlign: "center", padding: "20px" }}>
+                          <div
+                            style={{
+                              padding: "6px",
+                              borderRadius: "50%",
+                              color: "white",
+                              width: "20px",
+                              height: "20px",
+                              marginLeft: "95%",
+                              cursor: "pointer",
+                              backgroundColor: "#574c81",
+                              textAlign: "center",
+                            }}
+                            onClick={handleModal3}
+                          >
+                            X{" "}
+                          </div>
+                          <div
+                            style={{
+                              color: "#fff",
+                              fontSize: "27px",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Your Contact Information
+                          </div>
+                          <div style={{ color: "yellow" }}>
+                            Please provide at least one form of contact
+                            information so we can reach out to you.
+                          </div>
+                          <div
+                            style={{
+                              color: "#ddd",
+                              fontSize: "20px",
+                              marginTop: "20px",
+                            }}
+                          >
+                            <div>
+                              <span style={{ marginRight: "20px" }}>
+                                <img
+                                  src={Telegram}
+                                  alt="telegram"
+                                  width="20px"
+                                />
+                              </span>
+                              <input
+                                ref={refTelegram}
+                                type="text"
+                                placeholder="Your Telegram Username.."
+                                className="input_text_style"
+                                value={telegram}
+                                onChange={(e) => setTelegram(e.target.value)}
+                              />
+                            </div>
+                            <div>
+                              <span style={{ marginRight: "20px" }}>
+                                <img src={Email} alt="email" width="20px" />
+                              </span>
+                              <input
+                                ref={refEmail}
+                                type="text"
+                                placeholder="Your Email.."
+                                className="input_text_style"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                              />
+                            </div>
+                            <div style={{ marginTop: "15px" }}>
+                              <PhoneInput
+                                international
+                                defaultCountry="GB"
+                                value={phone}
+                                onChange={setPhone}
+                                // containerClass="phone_style"
+                                // inputStyle="phone_style"
+                              />
+                            </div>
+                          </div>
+                          <Button2
+                            btnContent="SUBMIT"
+                            btn2Class={
+                              !telegram && !email && !phone
+                                ? "theme_button_2_disabled"
+                                : "theme_button_2"
+                            }
+                            handleEvent={handleSubmit}
+                            disabled={
+                              !telegram && !email && !phone ? true : false
+                            }
                           />
                         </div>
-                        <div>
-                          <span style={{ marginRight: "20px" }}>
-                            <img src={Email} alt="email" width="20px" />
-                          </span>
-                          <input
-                            ref={refEmail}
-                            type="text"
-                            placeholder="Your Email.."
-                            className="input_text_style"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                          />
-                        </div>
-                        <div style={{ marginTop: "15px" }}>
-                          <PhoneInput
-                            international
-                            defaultCountry="GB"
-                            value={phone}
-                            onChange={setPhone}
-                            // containerClass="phone_style"
-                            // inputStyle="phone_style"
-                          />
-                        </div>
-                      </div>
-                      <Button2
-                        btnContent="SUBMIT"
-                        btn2Class={
-                          !telegram && !email && !phone
-                            ? "theme_button_2_disabled"
-                            : "theme_button_2"
-                        }
-                        handleEvent={handleSubmit}
-                        disabled={!telegram && !email && !phone ? true : false}
-                      />
-                    </div>
-                  </Modal>
-                  <Modal
-                    isOpen={isModalVisible4}
-                    onRequestClose={handleModal4}
-                    contentLabel="Warning"
-                    className="modal_style"
-                    ariaHideApp={false}
-                    shouldCloseOnOverlayClick={true}
-                  >
-                    <div style={{ textAlign: "center", padding: "50px" }}>
-                      <div
-                        style={{
-                          padding: "6px",
-                          borderRadius: "50%",
-                          color: "white",
-                          width: "20px",
-                          height: "20px",
-                          marginLeft: "95%",
-                          cursor: "pointer",
-                          backgroundColor: "#574c81",
-                          textAlign: "center",
-                        }}
-                        onClick={handleModal4}
+                      </Modal>
+                      <Modal
+                        isOpen={isModalVisible4}
+                        onRequestClose={handleModal4}
+                        contentLabel="Warning"
+                        className="modal_style"
+                        ariaHideApp={false}
+                        shouldCloseOnOverlayClick={true}
                       >
-                        X{" "}
-                      </div>
-                      <img
-                        src={Success}
-                        alt="wallet_icon"
-                        className="wallet_icon"
-                      />
-                      <div
-                        style={{
-                          color: "#fff",
-                          fontSize: "27px",
-                          marginTop: "20px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        Bid Confirmed
-                      </div>
-                      {/* <div
+                        <div style={{ textAlign: "center", padding: "50px" }}>
+                          <div
+                            style={{
+                              padding: "6px",
+                              borderRadius: "50%",
+                              color: "white",
+                              width: "20px",
+                              height: "20px",
+                              marginLeft: "95%",
+                              cursor: "pointer",
+                              backgroundColor: "#574c81",
+                              textAlign: "center",
+                            }}
+                            onClick={handleModal4}
+                          >
+                            X{" "}
+                          </div>
+                          <img
+                            src={Success}
+                            alt="wallet_icon"
+                            className="wallet_icon"
+                          />
+                          <div
+                            style={{
+                              color: "#fff",
+                              fontSize: "27px",
+                              marginTop: "20px",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Bid Confirmed
+                          </div>
+                          {/* <div
                         style={{
                           color: "#ddd",
                           fontSize: "20px",
@@ -992,97 +1069,99 @@ export default function Bid() {
                       >
                         Bid successfully done.
                       </div> */}
-                      <div
-                        style={{
-                          color: "#ddd",
-                          fontSize: "20px",
-                          marginTop: "10px",
-                        }}
-                      >
-                        <div>
-                          <span style={{ color: "#fff" }}>
-                            You are currently ranked{" "}
-                          </span>
-                          <span
+                          <div
                             style={{
-                              color: "rgb(228, 19, 94)",
+                              color: "#ddd",
+                              fontSize: "20px",
+                              marginTop: "10px",
+                            }}
+                          >
+                            <div>
+                              <span style={{ color: "#fff" }}>
+                                You are currently ranked{" "}
+                              </span>
+                              <span
+                                style={{
+                                  color: "rgb(228, 19, 94)",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                {ranking} out of all bidders.{" "}
+                              </span>
+                              <span style={{ color: "#fff" }}>bidders.</span>
+                            </div>
+                            <span style={{ color: "#fff" }}>
+                              We will notify you about the result at{" "}
+                            </span>
+                            <span
+                              style={{
+                                color: "rgb(228, 19, 94)",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              00:00.A.M, {dateForNotification}
+                            </span>
+                          </div>
+                        </div>
+                      </Modal>
+                      {/* in case of failed bid-----------start-modal */}
+                      <Modal
+                        isOpen={isModalVisible5}
+                        onRequestClose={handleModal5}
+                        contentLabel="Warning"
+                        className="modal_style"
+                        ariaHideApp={false}
+                        shouldCloseOnOverlayClick={true}
+                      >
+                        <div style={{ textAlign: "center", padding: "50px" }}>
+                          <div
+                            style={{
+                              padding: "6px",
+                              borderRadius: "50%",
+                              color: "white",
+                              width: "20px",
+                              height: "20px",
+                              marginLeft: "95%",
+                              cursor: "pointer",
+                              backgroundColor: "#574c81",
+                              textAlign: "center",
+                            }}
+                            onClick={handleModal5}
+                          >
+                            X{" "}
+                          </div>
+                          <img
+                            src={Failed}
+                            alt="wallet_icon"
+                            className="wallet_icon"
+                          />
+                          <div
+                            style={{
+                              color: "#fff",
+                              fontSize: "27px",
+                              marginTop: "20px",
                               fontWeight: "bold",
                             }}
                           >
-                            {ranking} out of all bidders.{" "}
-                          </span>
-                          <span style={{ color: "#fff" }}>bidders.</span>
+                            Oops !!!
+                          </div>
+                          <div
+                            style={{
+                              color: "#ddd",
+                              fontSize: "20px",
+                              marginTop: "10px",
+                            }}
+                          >
+                            Bid failed due to insufficient money.
+                          </div>
                         </div>
-                        <span style={{ color: "#fff" }}>
-                          We will notify you about the result at{" "}
-                        </span>
-                        <span
-                          style={{
-                            color: "rgb(228, 19, 94)",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          00:00.A.M, {dateForNotification}
-                        </span>
-                      </div>
-                    </div>
-                  </Modal>
-                  {/* in case of failed bid-----------start-modal */}
-                  <Modal
-                    isOpen={isModalVisible5}
-                    onRequestClose={handleModal5}
-                    contentLabel="Warning"
-                    className="modal_style"
-                    ariaHideApp={false}
-                    shouldCloseOnOverlayClick={true}
-                  >
-                    <div style={{ textAlign: "center", padding: "50px" }}>
-                      <div
-                        style={{
-                          padding: "6px",
-                          borderRadius: "50%",
-                          color: "white",
-                          width: "20px",
-                          height: "20px",
-                          marginLeft: "95%",
-                          cursor: "pointer",
-                          backgroundColor: "#574c81",
-                          textAlign: "center",
-                        }}
-                        onClick={handleModal5}
-                      >
-                        X{" "}
-                      </div>
-                      <img
-                        src={Failed}
-                        alt="wallet_icon"
-                        className="wallet_icon"
-                      />
-                      <div
-                        style={{
-                          color: "#fff",
-                          fontSize: "27px",
-                          marginTop: "20px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        Oops !!!
-                      </div>
-                      <div
-                        style={{
-                          color: "#ddd",
-                          fontSize: "20px",
-                          marginTop: "10px",
-                        }}
-                      >
-                        Bid failed due to insufficient money.
-                      </div>
-                    </div>
-                  </Modal>
-                  {/* end modal */}
-                </Grid>
-              </div>
-            </div>
+                      </Modal>
+                      {/* end modal */}
+                    </Grid>
+                  </div>
+                </div>
+              </Grid>
+            </Grid>
           </div>
         </div>
         <Footer />

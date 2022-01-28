@@ -20,6 +20,7 @@ export default function BiddersTableRow(props) {
       <td></td>
       <td>{props.obj.name}</td>
       <td>{props.obj.option}</td>
+      <td>{resultBidderData.serviceUrl}</td>
       <td>{props.obj.price}</td>
       <td>
         {bidderAddress || (
