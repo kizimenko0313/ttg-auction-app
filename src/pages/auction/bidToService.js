@@ -45,7 +45,6 @@ export default function Bid() {
   const [isModalVisible1, setModalVisible1] = useState(false);
   const [isModalVisible2, setModalVisible2] = useState(false);
   const [isModalVisible3, setModalVisible3] = useState(false);
-  // const [isModalVisibleConfirm, setModalVisibleConfirm] = useState(false);
   const [isModalVisible4, setModalVisible4] = useState(false);
   const [isModalVisible5, setModalVisible5] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
@@ -97,7 +96,7 @@ export default function Bid() {
   const handleStep1 = () => {
     if (
       serviceUrl !== "" &&
-      !/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_.~#?&//=]*)/g.test(
+      !/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,10}\b([-a-zA-Z0-9@:%_.~#?&//=]*)/g.test(
         serviceUrl
       )
     ) {
@@ -139,26 +138,6 @@ export default function Bid() {
       setProcessStep("3");
     }
   };
-
-  // const handleToStep3 = () => {
-  //   setModalVisibleConfirm(!isModalVisibleConfirm);
-  //   setBtnConetent("COMPLETE BID");
-  //   setProcessStep("3");
-
-  //   if (network !== ("ETH" && "BSC")) {
-  //     setCurrency(network);
-  //   } else {
-  //     if (network === "ETH") {
-  //       setCurrency(token1);
-  //     } else {
-  //       if (token2 === "USDT") {
-  //         setCurrency("B" + token2);
-  //       } else {
-  //         setCurrency(token2);
-  //       }
-  //     }
-  //   }
-  // };
 
   const handleStep3 = () => {
     setModalVisible3(!isModalVisible3);

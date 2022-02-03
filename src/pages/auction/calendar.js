@@ -141,8 +141,7 @@ const CalendarPage = () => {
                     for (let i = 0; i < services.length; i++) {
                       for (let j = 0; j < services[i].dates.length; j++) {
                         if (
-                          new Date().getTime() < date.getTime() &&
-                          new Date().getDate() + 2 <= date.getDate() &&
+                          new Date().getTime() + 172800000 < date.getTime() &&
                           services[i].network ===
                             window.localStorage.getItem("network") &&
                           new Date(services[i].dates[j]).toDateString() ===
