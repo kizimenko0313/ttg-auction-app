@@ -5,7 +5,8 @@ import AdminLeftBar from "./adminLeftBar";
 
 import Burger from "../assets/img/menu.png";
 
-export default function AdminLeftBarProps() {
+export default function AdminLeftBarProps(props) {
+  const { id } = props;
   const [isNavVisible, setNavVisibility] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
@@ -42,7 +43,7 @@ export default function AdminLeftBarProps() {
         unmountOnExit
       >
         <nav className="Nav" style={{ position: "relative", zIndex: "98" }}>
-          <AdminLeftBar />
+          <AdminLeftBar id={id} />
         </nav>
       </CSSTransition>
     </div>

@@ -10,7 +10,6 @@ import axios from "axios";
 import { NotificationManager } from "react-notifications";
 
 import { Underline } from "../../components/theme";
-import BackgroundParticles from "../../components/particles";
 import { Button1 } from "../../components/theme";
 import { Button2 } from "../../components/theme";
 
@@ -34,7 +33,6 @@ import copyClip from "../../assets/img/copy-clip.svg";
 import "../../main.css";
 
 import Header from "../../components/header";
-import Footer from "../../components/footer";
 
 export default function Bid() {
   const refContainer = useRef(null);
@@ -83,10 +81,6 @@ export default function Bid() {
   const handleModal3 = () => {
     setModalVisible3(!isModalVisible3);
   };
-  // const handleModalConfirm = () => {
-  //   NotificationManager.error("your bid rejected", "Failed", 2000);
-  //   setModalVisibleConfirm(!isModalVisibleConfirm);
-  // };
   const handleModal4 = () => {
     setModalVisible4(!isModalVisible4);
   };
@@ -133,8 +127,7 @@ export default function Bid() {
       }, 3000);
     } else {
       setModalVisible2(!isModalVisible2);
-      // setModalVisibleConfirm(!isModalVisibleConfirm);
-      setBtnConetent("COMPLETE BID");
+      setBtnConetent("Complete Bid");
       setProcessStep("3");
     }
   };
@@ -170,7 +163,7 @@ export default function Bid() {
     }
     setModalVisible3(!isModalVisible3);
     setModalVisible4(!isModalVisible4);
-    setBtnConetent("COMPLETED 👏");
+    setBtnConetent("Completed 👏");
     setProcessStep("completed");
     setHandleLoading(false);
 
@@ -228,7 +221,7 @@ export default function Bid() {
       .catch((error) => {
         console.log(error);
       });
-    setBtnConetent("START BID");
+    setBtnConetent("Start Bid");
     if (
       !window.localStorage.getItem("selectedService") ||
       !window.localStorage.getItem("network")
@@ -301,7 +294,7 @@ export default function Bid() {
             <span style={{ color: "#fff" }}>You are ranked </span>
             <span
               style={{
-                color: "rgb(228, 19, 94)",
+                color: "rgb(0, 60, 151)",
                 fontWeight: "bold",
               }}
             >
@@ -312,7 +305,7 @@ export default function Bid() {
             </span>
             <span
               style={{
-                color: "rgb(228, 19, 94)",
+                color: "rgb(0, 60, 151)",
                 fontWeight: "bold",
               }}
             >
@@ -321,21 +314,10 @@ export default function Bid() {
           </p>
         </div>
       ) : null}
-      <div className="App">
-        <BackgroundParticles />
+      <div className="App App-height1">
         <Header />
         <div className="bid word_break">
-          <div
-            style={{
-              color: "#ffffff",
-              fontSize: "39px",
-              fontWeight: "bold",
-              textAlign: "center",
-              marginTop: "30px",
-            }}
-          >
-            {selectedService.name}
-          </div>
+          <div className="bid_service_name">{selectedService.name}</div>
           <Underline />
           <div className="bid_section">
             <div className="bid_datails">
@@ -349,14 +331,14 @@ export default function Bid() {
                     }
                     alt="topic_image"
                     className="topic_image"
-                    // width="50px"
+                    // width="10%"
                   />
                 </Grid>
                 <Grid item xs={12} sm={8} md={9} lg={9}>
                   <div
                     style={{
                       paddingLeft: "5%",
-                      color: "#e4135e",
+                      color: "#003C97",
                       fontSize: "30px",
                       fontWeight: "bold",
                       marginLeft: "5%",
@@ -425,7 +407,7 @@ export default function Bid() {
                         <Grid item xs={12} sm={7} md={8} lg={9}>
                           <div className="bid_value_input">
                             <Grid container>
-                              <Grid item xs={5} sm={6} md={6} lg={6}>
+                              <Grid item xs={5} sm={6} md={4} lg={4}>
                                 <center>
                                   <input
                                     type="number"
@@ -436,7 +418,7 @@ export default function Bid() {
                                   />
                                 </center>
                               </Grid>
-                              <Grid item xs={7} sm={6} md={6} lg={6}>
+                              <Grid item xs={7} sm={6} md={8} lg={8}>
                                 <center>
                                   {network === "FANTOM" && (
                                     <div>
@@ -481,7 +463,7 @@ export default function Bid() {
                                         </span>
                                         <ExpandMoreIcon
                                           style={{
-                                            color: "#d31056",
+                                            color: "#007dfb",
                                             marginLeft: "10px",
                                           }}
                                         />
@@ -555,7 +537,7 @@ export default function Bid() {
                                         </span>
                                         <ExpandMoreIcon
                                           style={{
-                                            color: "#d31056",
+                                            color: "#007dfb",
                                             marginLeft: "10px",
                                           }}
                                         />
@@ -641,7 +623,7 @@ export default function Bid() {
                           serviceUrl ? (
                             <Button1
                               btnContent={btnContent}
-                              btn1Class="theme_button_1"
+                              btn1Class="theme_button_1_1"
                               handleEvent={handleStep1}
                             />
                           ) : (
@@ -655,13 +637,13 @@ export default function Bid() {
                         ) : processStep === "2" ? (
                           <Button1
                             btnContent={btnContent}
-                            btn1Class="theme_button_1"
+                            btn1Class="theme_button_1_1"
                             handleEvent={handleStep2}
                           />
                         ) : processStep === "3" ? (
                           <Button1
                             btnContent={btnContent}
-                            btn1Class="theme_button_1"
+                            btn1Class="theme_button_1_1"
                             handleEvent={handleStep3}
                           />
                         ) : processStep === "completed" ? (
@@ -686,20 +668,10 @@ export default function Bid() {
                       >
                         <div style={{ textAlign: "center", padding: "20px" }}>
                           <div
-                            style={{
-                              padding: "6px",
-                              borderRadius: "50%",
-                              color: "white",
-                              width: "20px",
-                              height: "20px",
-                              marginLeft: "95%",
-                              cursor: "pointer",
-                              backgroundColor: "#574c81",
-                              textAlign: "center",
-                            }}
+                            className="bid_modal_close"
                             onClick={handleModal1}
                           >
-                            X{" "}
+                            X
                           </div>
                           <img
                             src={WalletImage}
@@ -722,17 +694,20 @@ export default function Bid() {
                               target="_blank"
                               style={{
                                 color: "yellow",
-                                textAlign: "left!important",
                               }}
                             >
-                              Learn more
-                              <img src={Clip_funnel} alt="clip" />
+                              <div style={{ display: "flex", float: "right" }}>
+                                <div>Learn more</div>
+                                <div>
+                                  <img src={Clip_funnel} alt="clip" />
+                                </div>
+                              </div>
                             </a>
                           </div>
                           <Button2
-                            btnContent="CONTINUE"
+                            btnContent="Continue"
                             handleEvent={handleToStep2}
-                            btn2Class="theme_button_2"
+                            btn2Class="theme_button_1_1 btn_modal_continue"
                           />
                         </div>
                       </Modal>
@@ -746,17 +721,7 @@ export default function Bid() {
                       >
                         <div style={{ textAlign: "center", padding: "20px" }}>
                           <div
-                            style={{
-                              padding: "6px",
-                              borderRadius: "50%",
-                              color: "white",
-                              width: "20px",
-                              height: "20px",
-                              marginLeft: "95%",
-                              cursor: "pointer",
-                              backgroundColor: "#574c81",
-                              textAlign: "center",
-                            }}
+                            className="bid_modal_close"
                             onClick={handleModal2}
                           >
                             X{" "}
@@ -802,7 +767,7 @@ export default function Bid() {
                               </span>
                             </div>
                             <div>
-                              Address:
+                              Address&nbsp;:&nbsp;
                               <span
                                 style={{
                                   color: "#b6a026",
@@ -848,57 +813,61 @@ export default function Bid() {
                                 textAlign: "left!important",
                               }}
                             >
-                              Learn more
-                              <img src={Clip_funnel} alt="clip" />
+                              <div style={{ display: "flex", float: "right" }}>
+                                <div>Learn more</div>
+                                <div>
+                                  <img src={Clip_funnel} alt="clip" />
+                                </div>
+                              </div>
                             </a>
                           </div>
                           <Button2
                             btnContent="paid"
                             handleEvent={handleToStep3}
-                            btn2Class="theme_button_2"
+                            btn2Class="theme_button_1_1"
                           />
                         </div>
                       </Modal>
                       {/* <Modal
-                    isOpen={isModalVisibleConfirm}
-                    onRequestClose={handleModalConfirm}
-                    contentLabel="Warning"
-                    className="modal_style"
-                    ariaHideApp={false}
-                    shouldCloseOnOverlayClick={false}
-                  >
-                    <div style={{ padding: "50px" }}>
-                      <div
-                        style={{
-                          textAlign: "center",
-                          color: "white",
-                          fontSize: "2em",
-                        }}
-                      >
-                        Are you sure ?
-                      </div>
-                      <div style={{ color: "yellow", marginTop: "20px" }}>
-                        If you have not sent the EXACT amount, your bid will not
-                        be detected.
-                      </div>
-                      <Grid container>
-                        <Grid item xs={6} sm={6} md={6} lg={6}>
-                          <Button2
-                            btnContent="yes"
-                            handleEvent={handleToStep3}
-                            btn2Class="theme_button_2"
-                          />
-                        </Grid>
-                        <Grid item xs={6} sm={6} md={6} lg={6}>
-                          <Button1
-                            btnContent="cancel"
-                            handleEvent={handleModalConfirm}
-                            btn1Class="theme_button_1"
-                          />
-                        </Grid>
-                      </Grid>
-                    </div>
-                  </Modal> */}
+										isOpen={isModalVisibleConfirm}
+										onRequestClose={handleModalConfirm}
+										contentLabel="Warning"
+										className="modal_style"
+										ariaHideApp={false}
+										shouldCloseOnOverlayClick={false}
+									>
+										<div style={{ padding: "50px" }}>
+											<div
+												style={{
+													textAlign: "center",
+													color: "white",
+													fontSize: "2em",
+												}}
+											>
+												Are you sure ?
+											</div>
+											<div style={{ color: "yellow", marginTop: "20px" }}>
+												If you have not sent the EXACT amount, your bid will not
+												be detected.
+											</div>
+											<Grid container>
+												<Grid item xs={6} sm={6} md={6} lg={6}>
+													<Button2
+														btnContent="yes"
+														handleEvent={handleToStep3}
+														btn2Class="theme_button_2"
+													/>
+												</Grid>
+												<Grid item xs={6} sm={6} md={6} lg={6}>
+													<Button1
+														btnContent="cancel"
+														handleEvent={handleModalConfirm}
+														btn1Class="theme_button_1"
+													/>
+												</Grid>
+											</Grid>
+										</div>
+									</Modal> */}
                       <Modal
                         isOpen={isModalVisible3}
                         onRequestClose={handleModal3}
@@ -909,17 +878,7 @@ export default function Bid() {
                       >
                         <div style={{ textAlign: "center", padding: "20px" }}>
                           <div
-                            style={{
-                              padding: "6px",
-                              borderRadius: "50%",
-                              color: "white",
-                              width: "20px",
-                              height: "20px",
-                              marginLeft: "95%",
-                              cursor: "pointer",
-                              backgroundColor: "#574c81",
-                              textAlign: "center",
-                            }}
+                            className="bid_modal_close"
                             onClick={handleModal3}
                           >
                             X{" "}
@@ -933,10 +892,18 @@ export default function Bid() {
                           >
                             Your Contact Information
                           </div>
-                          <div style={{ color: "yellow" }}>
+                          <div
+                            style={{
+                              color: "yellow",
+                              padding: "10px 30px",
+                              fontSize: "18px",
+                            }}
+                          >
                             Please provide at least one form of contact
                             information so we can reach out to you.
                           </div>
+                        </div>
+                        <div style={{ padding: "0px 20px", marginLeft: "15%" }}>
                           <div
                             style={{
                               color: "#ddd",
@@ -985,12 +952,14 @@ export default function Bid() {
                               />
                             </div>
                           </div>
+                        </div>
+                        <div style={{ marginTop: "-20px", padding: "20px" }}>
                           <Button2
                             btnContent="SUBMIT"
                             btn2Class={
                               !telegram && !email && !phone
-                                ? "theme_button_2_disabled"
-                                : "theme_button_2"
+                                ? "theme_button_1_disabled"
+                                : "theme_button_1_1"
                             }
                             handleEvent={handleSubmit}
                             disabled={
@@ -1009,17 +978,7 @@ export default function Bid() {
                       >
                         <div style={{ textAlign: "center", padding: "50px" }}>
                           <div
-                            style={{
-                              padding: "6px",
-                              borderRadius: "50%",
-                              color: "white",
-                              width: "20px",
-                              height: "20px",
-                              marginLeft: "95%",
-                              cursor: "pointer",
-                              backgroundColor: "#574c81",
-                              textAlign: "center",
-                            }}
+                            className="bid_modal_close"
                             onClick={handleModal4}
                           >
                             X{" "}
@@ -1039,15 +998,6 @@ export default function Bid() {
                           >
                             Bid Confirmed
                           </div>
-                          {/* <div
-                        style={{
-                          color: "#ddd",
-                          fontSize: "20px",
-                          marginTop: "10px",
-                        }}
-                      >
-                        Bid successfully done.
-                      </div> */}
                           <div
                             style={{
                               color: "#ddd",
@@ -1061,7 +1011,7 @@ export default function Bid() {
                               </span>
                               <span
                                 style={{
-                                  color: "rgb(228, 19, 94)",
+                                  color: "rgb(29 62 181)",
                                   fontWeight: "bold",
                                 }}
                               >
@@ -1074,7 +1024,7 @@ export default function Bid() {
                             </span>
                             <span
                               style={{
-                                color: "rgb(228, 19, 94)",
+                                color: "rgb(29 62 181)",
                                 fontWeight: "bold",
                               }}
                             >
@@ -1143,7 +1093,6 @@ export default function Bid() {
             </Grid>
           </div>
         </div>
-        <Footer />
       </div>
     </>
   );

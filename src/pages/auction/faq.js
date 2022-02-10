@@ -4,31 +4,18 @@ import { Link } from "react-router-dom";
 import { Underline } from "../../components/theme";
 import { Button1 } from "../../components/theme";
 
-import BackgroundParticles from "../../components/particles";
 import Header from "../../components/header";
-import Footer from "../../components/footer";
 
 export default function Faq() {
   const [goback, setGoback] = useState("");
 
   useEffect(() => {
-    setGoback("GO BACK");
+    setGoback("Go Back");
   }, []);
   return (
-    <div className="App">
-      <BackgroundParticles />
+    <div className="App App-height1">
       <Header />
-      <div
-        style={{
-          color: "#ffffff",
-          fontSize: "39px",
-          fontWeight: "bold",
-          textAlign: "center",
-          marginTop: "50px",
-        }}
-      >
-        FAQ
-      </div>
+      <div className="faq_title">FAQ</div>
       <Underline />
       <div className="faq_contents">
         <div className="faq_topic">What does LOREM mean?</div>
@@ -39,6 +26,7 @@ export default function Faq() {
           pain. This makes the current dummy text impossible to translate into
           English
         </div>
+        <hr className="hr_custom" />
         <div className="faq_topic">What does LOREM mean?</div>
         <div className="faq_main">
           Lorem Ipsum was originally taken from a Latin text by the Roman
@@ -47,6 +35,8 @@ export default function Faq() {
           pain. This makes the current dummy text impossible to translate into
           English
         </div>
+        <hr className="hr_custom" />
+
         <div className="faq_topic">What does LOREM mean?</div>
         <div className="faq_main">
           Lorem Ipsum was originally taken from a Latin text by the Roman
@@ -55,11 +45,14 @@ export default function Faq() {
           pain. This makes the current dummy text impossible to translate into
           English
         </div>
-        <Link to="/calendar" style={{ textDecoration: "none" }}>
-          <Button1 btnContent={goback} btn1Class="theme_button_1" />
-        </Link>
+        <hr className="hr_custom" />
+
+        <div style={{ textAlign: "center" }}>
+          <Link to="/calendar" style={{ textDecoration: "none" }}>
+            <Button1 btnContent={goback} btn1Class="go_back_btn" />
+          </Link>
+        </div>
       </div>
-      <Footer />
     </div>
   );
 }

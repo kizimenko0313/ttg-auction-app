@@ -9,14 +9,12 @@ import { NotificationManager } from "react-notifications";
 import Calendar from "react-calendar";
 import "./Calendar.css";
 
-import BackgroundParticles from "../../components/particles";
 import { Underline } from "../../components/theme";
 import { Button1 } from "../../components/theme";
 import faq_icon from "../../assets/img/faq.png";
-import NoServiceIcon from "../../assets/img/noService.webp";
+import NoServiceIcon from "../../assets/img/noService 1.png";
 
 import Header from "../../components/header";
-import Footer from "../../components/footer";
 
 import "../../main.css";
 
@@ -117,22 +115,14 @@ const CalendarPage = () => {
     update({ selectedServiceId: i._id });
   };
   return (
-    <div className="App" style={{ color: "white" }}>
-      <BackgroundParticles />
+    <div className="App App-height1" style={{ color: "white" }}>
       <Header />
       <div className="select_date">
         <div className="select_date_title">Select Date</div>
         <Underline />
         <div className="select_date_calendar">
           <Grid container spacing={5}>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={12}
-              lg={5}
-              style={{ marginTop: "10px" }}
-            >
+            <Grid item xs={12} sm={12} md={12} lg={5} className="calendar_left">
               <center>
                 <Calendar
                   onChange={selectDate}
@@ -173,11 +163,11 @@ const CalendarPage = () => {
                     Available Services
                   </div>
                   <div className="time_slot_title_date">
-                    <span style={{ color: "#c70c60" }}>{date}</span>
+                    <span style={{ color: "#003C97" }}>{date}</span>
                   </div>
                 </div>
                 <div>
-                  <Grid container style={{ width: "100%" }}>
+                  <Grid container style={{ width: "80%" }}>
                     {showServices.length === 0 ? (
                       <Grid item xs={12} sm={12} md={12} lg={12}>
                         <center>
@@ -232,9 +222,11 @@ const CalendarPage = () => {
         <div className="next">
           <Link to="/bid">
             <Button1
-              btnContent="NEXT"
+              btnContent="Next"
               btn1Class={
-                selected ? "next_button" : "next_button next_button_disabled"
+                selected
+                  ? "next_button calendar_next_button"
+                  : "next_button next_button_disabled"
               }
               disabled={selected ? false : true}
             />
@@ -242,13 +234,12 @@ const CalendarPage = () => {
         </div>
       </div>
 
-      <div style={{ cursor: "pointer" }}>
+      <div style={{ cursor: "pointer", marginTop: "-40px" }}>
         <Link to="/faq" style={{ textDecoration: "none" }}>
           <img src={faq_icon} alt="faq_icon" className="faq_icon" />
           <span className="faq_text">FAQ</span>
         </Link>
       </div>
-      <Footer />
     </div>
   );
 };

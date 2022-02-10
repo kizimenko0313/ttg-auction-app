@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 import "../main.css";
 
-import Admin_logo from "../assets/img/logo_light.png";
+import Admin_logo from "../assets/img/logo_light 1.png";
 
 export default function AdminLeftBar(props) {
-  const { leftbar_style } = props;
+  const { id, leftbar_style } = props;
 
   useEffect(() => {
     if (!window.sessionStorage.getItem("loggedin")) {
@@ -22,8 +22,9 @@ export default function AdminLeftBar(props) {
         } catch (e) {}
       };
       window.preventBackButton();
-    }
+    }    
   }, []);
+
   return (
     <div className={leftbar_style}>
       <div className="admin_left_bar">
@@ -31,20 +32,26 @@ export default function AdminLeftBar(props) {
           <img src={Admin_logo} alt="Admin_logo" className="Admin_logo" />
         </center>
 
-        <Link to="/admin/dashboard" className="Admin_Links">
-          <div style={{ marginTop: "30px" }}>Dashboard</div>
+        <Link
+          to="/admin/dashboard"
+          className={id === 1 ? "Admin_Links detect" : "Admin_Links"}
+        >
+          <div   className={id === 1 ? "Admin_Links detect" : "Admin_Links"} style={{ marginTop: "10px" }}><div className="admin_router_name">Dashboard</div></div>
         </Link>
-        <Link to="/admin/bid-record" className="Admin_Links">
-          <div style={{ marginTop: "30px" }}>Bid Record</div>
+        <Link
+          to="/admin/bid-record"
+          className={id === 2 ? "Admin_Links detect" : "Admin_Links"}
+        >
+          <div  className={id === 2 ? "Admin_Links detect" : "Admin_Links"} style={{ marginTop: "10px" }}><div className="admin_router_name">Bid Record</div></div>
         </Link>
-        <Link to="/admin/winner-record" className="Admin_Links">
-          <div style={{ marginTop: "30px" }}>Winner Record</div>
+        <Link to="/admin/winner-record"  className={id === 3 ? "Admin_Links detect" : "Admin_Links"}>
+          <div className={id === 3 ? "Admin_Links detect" : "Admin_Links"} style={{ marginTop: "10px" }}><div className="admin_router_name">Winner Record</div></div>
         </Link>
-        <Link to="/admin/edit-service" className="Admin_Links">
-          <div style={{ marginTop: "30px" }}>Edit Services</div>
+        <Link to="/admin/edit-service"  className={id === 4 ? "Admin_Links detect" : "Admin_Links"}>
+          <div className={id === 4 ? "Admin_Links detect" : "Admin_Links"} style={{ marginTop: "10px" }}><div className="admin_router_name">Edit Services</div></div>
         </Link>
-        <Link to="/admin/admin-accounts" className="Admin_Links">
-          <div style={{ marginTop: "30px" }}>Admin Account</div>
+        <Link to="/admin/admin-accounts"  className={id === 5 ? "Admin_Links detect" : "Admin_Links"}>
+          <div className={id === 5 ? "Admin_Links detect" : "Admin_Links"} style={{ marginTop: "10px" }}><div className="admin_router_name">Admin Account</div></div>
         </Link>
         <Link to="/" className="Admin_Links">
           <div

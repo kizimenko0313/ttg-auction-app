@@ -30,6 +30,7 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<WelcomePage />}></Route>
+
           <Route exact path="/services" element={<ServicePage />}></Route>
           <Route exact path="/networks" element={<NetworkPage />}></Route>
           <Route exact path="/calendar" element={<CalendarPage />}></Route>

@@ -3,7 +3,6 @@ import { Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
 
-import BackgroundParticles from "../../components/particles";
 import "../../main.css";
 
 import service_image from "../../assets/img/service_image.png";
@@ -11,7 +10,6 @@ import { Button1 } from "../../components/theme";
 import { Button2 } from "../../components/theme";
 
 import Header from "../../components/header";
-import Footer from "../../components/footer";
 
 export default function ServicePage() {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -25,14 +23,10 @@ export default function ServicePage() {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
-      backgroundImage: `linear-gradient(
-        to left,
-        #090f3b 0,
-        #2e377a 51%,
-        #0c134e 100%
-      )`,
-      border: "0.75pt solid #333333",
-      borderRadius: `10px!important`,
+      background: "#020724",
+      width: "30%",
+      border: "none",
+      borderRadius: "10px",
     },
   };
 
@@ -44,8 +38,7 @@ export default function ServicePage() {
     setSelect(!select);
   };
   return (
-    <div className="App">
-      <BackgroundParticles style={{ height: "100%" }} />
+    <div className="App App-height1">
       <Header />
       <Grid container>
         <Grid item xs={12} sm={12} md={6} lg={5}>
@@ -118,7 +111,7 @@ export default function ServicePage() {
                   onRequestClose={handleModal}
                   style={customStyles}
                   ariaHideApp={false}
-                  contentLabel="COMING SOON"
+                  contentLabel="Coming Soon"
                 >
                   <div style={{ textAlign: "center", padding: "20px" }}>
                     <div
@@ -134,7 +127,7 @@ export default function ServicePage() {
                       {" "}
                       X{" "}
                     </div>
-                    <h1 style={{ color: "grey" }}>COMING SOON</h1>
+                    <h1 style={{ color: "grey" }}>Coming Soon</h1>
                     <div style={{ color: "#ddd", fontSize: "20px" }}>
                       Currently Unavailable.
                       <br />
@@ -148,7 +141,7 @@ export default function ServicePage() {
                 <Grid item xs={12} sm={12} md={6} lg={6}>
                   <Button2
                     btnContent={select ? "DexTools 👌" : "DexTools"}
-                    btn2Class="theme_button_2"
+                    btn2Class="theme_button_1"
                     className="option_C"
                     handleEvent={handleSelect}
                   />
@@ -178,20 +171,11 @@ export default function ServicePage() {
                   contentLabel="COMING SOON"
                 >
                   <div style={{ textAlign: "center", padding: "20px" }}>
-                    <div
-                      style={{
-                        textAlign: "end",
-                        color: "white",
-                        width: "3%",
-                        marginLeft: "97%",
-                        cursor: "pointer",
-                      }}
-                      onClick={handleModal}
-                    >
+                    <div className="service_modal_close" onClick={handleModal}>
                       {" "}
                       X{" "}
                     </div>
-                    <h1 style={{ color: "grey" }}>COMING SOON</h1>
+                    <h1 style={{ color: "grey" }}>Coming Soon</h1>
                     <div style={{ color: "#ddd", fontSize: "20px" }}>
                       Currently Unavailable.
                       <br />
@@ -206,7 +190,7 @@ export default function ServicePage() {
           <div className="next">
             {select === false ? (
               <Button1
-                btnContent="NEXT"
+                btnContent="Next"
                 btn1Class="next_button_disabled next_button"
               />
             ) : (
@@ -217,7 +201,6 @@ export default function ServicePage() {
           </div>
         </Grid>
       </Grid>
-      <Footer />
     </div>
   );
 }

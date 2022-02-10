@@ -30,10 +30,10 @@ export default function BidRecord() {
 
   return (
     <div className="winner_record admin_padding">
-      <BackgroundParticles />
+      {/* <BackgroundParticles /> */}
       <Grid container>
         <Grid item md={1} lg={3}>
-          <AdminLeftBarProps />
+          <AdminLeftBarProps id={2} />
         </Grid>
         <Grid item xs={12} sm={12} md={11} lg={9}>
           <div

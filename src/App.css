@@ -1,5 +1,35 @@
-.App {width:80%; margin-left:10%; height:100vh;}
+.App {width:80%; margin-left:10%;}
+.App-height {
+    height:100vh !important;
+    /* padding-bottom: 10%; */
+}
+.App-height1{
+    height:100vh !important;
+    /* padding-bottom: 10%; */
+}
+@media (max-width:1900px) {
+    .App-height {
+        height:100vh!important;
+        /* padding-bottom: 10%; */
+    }
+}
 
+@media (max-width:996px) {
+    .App-height {
+        height:100vh !important;
+        /* padding-bottom: 10%; */
+    }
+}
+@media (max-width:959px) {
+    .App-height {
+        height:100% !important;
+        /* padding-bottom: 10%; */
+    } 
+    .App-height1{
+        height:100% !important;
+        /* padding-bottom: 10%; */
+    }
+}
 /* .App1 {} */
 .App-logo {height:40vmin; pointer-events:none;}
 

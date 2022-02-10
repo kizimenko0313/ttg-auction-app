@@ -14,7 +14,7 @@ export const Button1 = (props) => {
   const { btnContent, handleEvent, btn1Class, disabled } = props;
   return (
     <button className={btn1Class} onClick={handleEvent} disabled={disabled}>
-      {btnContent}
+     {btnContent}
     </button>
   );
 };

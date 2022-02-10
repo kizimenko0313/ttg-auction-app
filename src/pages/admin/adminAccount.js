@@ -7,10 +7,10 @@ import AdminLeftBarProps from "../../components/adminLeftProps";
 export default function AdminAccount() {
   return (
     <div className="bid_record admin_padding">
-      <BackgroundParticles />
+      {/* <BackgroundParticles /> */}
       <Grid container>
         <Grid item md={1} lg={3}>
-          <AdminLeftBarProps />
+          <AdminLeftBarProps id={5} />
         </Grid>
         <Grid item xs={12} sm={12} md={11} lg={9}>
           <div

@@ -3,7 +3,7 @@ import { Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 import "../main.css";
-import Logo from "../assets/img/logo_light.png";
+import Logo from "../assets/img/logo_light 1.png";
 
 export default function Header() {
   return (

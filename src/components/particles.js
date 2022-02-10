@@ -28,6 +28,7 @@ export default function BackgroundParticles() {
           }
         }
       }}
+ 
       className="particle_style"
       style={{
         position: "absolute",
